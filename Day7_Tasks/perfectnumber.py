@@ -9,3 +9,4 @@ if sum == n:
     print("Perfect number")
 else:
     print("Not a Perfect number")
+print(sum)

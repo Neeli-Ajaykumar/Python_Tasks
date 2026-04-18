@@ -1,0 +1,10 @@
+     Name  Marks Grade
+0    Ajay     80     A
+1    Ravi     28     C
+2  Naresh     97     A
+3  Mahesh     27     C
+4    Arun     41     C
+
+Average: 54.6
+Max: 97
+Min: 27

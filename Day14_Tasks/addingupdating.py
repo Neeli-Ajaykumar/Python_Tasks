@@ -1,0 +1,19 @@
+"""Adding and Updating Columns 
+A DataFrame: 
+df = pd.DataFrame({ 
+"Price": [100, 200, 300] 
+}) 
+Scenario: 
+● Add a column Discount = 10% of Price 
+● Add another column Final Price = Price - Discount """
+
+import pandas as pd
+
+df = pd.DataFrame({"Price": [100, 200, 300]})
+print("Original data:\n", df)
+
+df['Discount'] = df['Price'] * 0.10
+print("\nDiscount:\n", df)
+
+df['Final_Price'] = df['Price'] - df['Discount']
+print("\nFinal Price:\n", df)

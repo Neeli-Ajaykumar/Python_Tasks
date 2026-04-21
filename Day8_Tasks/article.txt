@@ -1,0 +1,1 @@
+Reads employee data from the file Displays all employee details Finds the employee with the highest salary Appends a new employee record to the file.

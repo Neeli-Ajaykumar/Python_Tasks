@@ -1,0 +1,5 @@
+student scoring above 50:
+Ajay: 70
+Bunny: 60
+
+Average marks:

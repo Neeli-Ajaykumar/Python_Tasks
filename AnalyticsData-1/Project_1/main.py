@@ -1,16 +1,43 @@
-#import Required Libraries
+""" =========================================================================
+ 📊 Project Title: Railway Gauge Data Analysis
+ Analyze railway gauge dataset using NumPy, Pandas, Matplotlib
+ ============================================================================
+
+ ============================================================================
+ 📦 1. Import Required Libraries
+ ============================================================================
+ 👉 Import numpy
+ 👉 Import pandas
+ 👉 Import matplotlib.pyplot
+ 👉 (Optional) Import os for folder creation"""
+
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
 
-# SCENARIO 1: Basic Data Loading & Cleaning
+""" =========================================================================
+ 📂 2. Load Dataset
+ ============================================================================
+ 👉 Load CSV file into DataFrame
+ 👉 Display first 5 rows
+ 👉 Display column names"""
 
-# Load Dataset
 d = pd.read_csv("railway_gauges.csv")
-
-# Display first 5 rows and column names
 print(d.head())
 print(d.columns)
+
+""" =========================================================================
+ 🟢 SCENARIO 1: Data Cleaning
+ ============================================================================
+ 👉 Check missing values in dataset
+ 👉 Replace missing values with 0
+ 👉 Convert columns:
+     Broad Gauge
+     Metre Gauge
+     Narrow Gauge
+     Total
+ 👉 Ensure all are numeric type
+ 👉 Print data types after conversion"""
 
 # Check missing values
 print(d.isnull().sum())
@@ -23,9 +50,22 @@ cols = ['Broad Gauge', 'Metre Gauge', 'Narrow Gauge', 'Total']
 for col in cols:
     d[col] = pd.to_numeric(d[col], errors='coerce')
 
-# SCENARIO 2: Line Graph (Total Track Growth)
+""" ========================================================================
+ 🟢 SCENARIO 2: Line Graph (Total Tracks)
+ ===========================================================================
+ 👉 Extract Year column
+ 👉 Extract Total column
+ 👉 Plot line graph
+ 👉 Add:
+     Title
+   X-label (Year)
+     Y-label (Total Tracks)
+ 👉 Save graph inside "graphs" folder
+ 👉 Display graph
+ 👉 Write observation:
+     Is trend increasing or decreasing?
+ Extract Year and Total columns and plot"""
 
-# Extract Year and Total columns and plot
 plt.plot(d['Year'], d['Total'], marker='o')
 
 # Add title and labels
@@ -40,7 +80,25 @@ plt.tight_layout()
 plt.savefig("graphs/total_growth.png")
 plt.show()
 
-# SCENARIO 3: Filtering + Bar Chart
+"""========================================================================
+ 🟡 SCENARIO 3: Bar Chart (After 2000)
+ ==========================================================================
+ 👉 Filter dataset for Year > 2000
+ 👉 Extract:
+     Broad Gauge
+     Metre Gauge
+     Narrow Gauge
+ 👉 Create positions for bars (NumPy)
+ 👉 Plot grouped bar chart
+ 👉 Add:
+     Title
+     Labels
+     Legend
+ 👉 Rotate X-axis labels if needed
+ 👉 Save graph inside "graphs" folder
+ 👉 Display graph
+ 👉 Write observation:
+     Which gauge is dominant?"""
 
 # Filter data for years after 2000
 d_modern = d[d['Year'] >= '2000-01']
@@ -57,7 +115,23 @@ plt.legend()
 plt.savefig("graphs/gauge_bar.png")
 plt.show()
 
-# SCENARIO 4: Pie Chart (Gauge Contribution)
+"""=========================================================================
+ 🟡 SCENARIO 4: Pie Chart (Gauge Contribution)
+ ===========================================================================
+ 👉 Calculate total sum of:
+     Broad Gauge
+     Metre Gauge
+     Narrow Gauge
+ 👉 Store values in a list/structure
+ 👉 Plot pie chart
+ 👉 Add:
+     Labels
+     Percentage (autopct)
+     Title
+ 👉 Save graph inside "graphs" folder
+ 👉 Display graph
+ 👉 Write observation:
+     Which gauge contributes the most?"""
 
 # Calculate total sum of each gauge
 totals = d[['Broad Gauge', 'Metre Gauge', 'Narrow Gauge']].sum()
@@ -71,7 +145,36 @@ plt.title("Pie graph Gauge Contribution Distribution")
 plt.savefig("graphs/gauge_pie.png")
 plt.show()
 
-# SCENARIO 5: Advanced Analysis
+""" ========================================================================
+ 🔴 SCENARIO 5: Advanced Analysis
+ ===========================================================================
+ 👉 Create new columns:
+     % Broad Gauge
+     % Metre Gauge
+     % Narrow Gauge
+ 👉 Use NumPy to calculate year-to-year growth of Total tracks
+ 👉 Add growth as a new column
+ 👉 Plot line graph for:
+     Broad Gauge
+     Metre Gauge
+     Total
+ 👉 Add title, labels, legend
+ 👉 Save graph
+ 👉 Display graph
+ 👉 Plot stacked bar chart:
+     Broad at bottom
+     Metre on top of Broad
+     Narrow on top of both
+ 👉 Add title, labels, legend
+ 👉 Rotate X-axis labels
+ 👉 Save graph
+ 👉 Display graph
+ 👉 Identify:
+     Year with highest growth
+     Any declining gauge
+ 👉 Final Conclusion:
+     Is railway shifting to a single dominant gauge?
+     Explain in 2–3 lines"""
 
 # Create percentage columns
 d['% Broad'] = (d['Broad Gauge'] / d['Total']) * 100

@@ -1,5 +1,11 @@
-#project title:scottish hill analysis
-# Using NumPy, Pandas, and Matplotlib for analysis
+"""============================================================
+Project Title:House Sales (kc_house_data.csv)
+Analyze House Sales dataset using NumPy, Pandas, Matplotlib
+============================================================
+
+============================================================
+1. Import Required Libraries
+============================================================"""
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
@@ -125,7 +131,7 @@ plt.ylabel("Height")
 plt.grid(True)
  
 # 6. Save the graph
-plt.savefig("Line Graph Of hill_heights_line.png")
+plt.savefig("Graphs/Line Graph Of hill_heights_line.png")
  
 # Show plot
 plt.show()
@@ -184,7 +190,7 @@ plt.title("Bar Graph Of Top Regions with Tall Hills (>900)")
 # 6. Rotate labels
 #plt.xticks(rotation=45)
 
-plt.savefig("Bar Graph Of tall_hills_bar.png")
+plt.savefig("Graphs/Bar Graph Of tall_hills_bar.png")
 plt.show()
 
 #===============================================================================
@@ -217,7 +223,7 @@ plt.pie(values,labels=labels,explode=(0.06,0,0,0),shadow=True,autopct='%1.1f%%',
 plt.title("Pie Chart Of Top regions by Hill count")
 plt.tight_layout()
 
-plt.savefig("Pie Chart Of region_distribution.png")
+plt.savefig("Graphs/Pie Chart Of region_distribution.png")
 plt.show()
 
 
@@ -276,7 +282,7 @@ plt.xlabel("Index")
 plt.ylabel("Height")
 plt.grid(True)
 
-plt.savefig("1.Line Graph Of height_trend.png")
+plt.savefig("Graphs/1.Line Graph Of height_trend.png")
 plt.show()
 
 # 📊 Stacked Bar Chart (Category per Region)
@@ -287,7 +293,7 @@ plt.title("Stacked Bar Chart Of Height Category per Region")
 plt.xlabel("Region")
 plt.ylabel("Count")
 
-plt.savefig("Stacked Bar Chart Of height_category_stacked.png")
+plt.savefig("Graphs/Stacked Bar Chart Of height_category_stacked.png")
 plt.show()
 
 # 📉 Histogram (Height Distribution)
@@ -298,7 +304,7 @@ plt.title("Histogram Of Height Distribution")
 plt.xlabel("Height")
 plt.ylabel("Frequency")
 
-plt.savefig("Histogram Of height_histogram.png")
+plt.savefig("Graphs/Histogram Of height_histogram.png")
 plt.show()
 
 # 👉 Part 5: Insights

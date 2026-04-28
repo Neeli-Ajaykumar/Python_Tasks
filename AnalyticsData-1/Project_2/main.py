@@ -111,7 +111,7 @@ plt.plot(x,y, marker = 'o')
 plt.title("Line Graph Of Average Game Score Over The Years")
 plt.xlabel("release_year")
 plt.ylabel("average score")
-plt.savefig("Line Graph avg_score_trend.png")
+plt.savefig("Graphs/Line Graph avg_score_trend.png")
 plt.grid()
 plt.show()
 
@@ -158,7 +158,7 @@ plt.xticks(rotation=45)
 plt.title("Bar Chart for Top 10 platforms")
 plt.xlabel("platform")
 plt.ylabel("count of games")
-plt.savefig("Bar Chart top_platforms_bar.png")
+plt.savefig("Graphs/Bar Chart top_platforms_bar.png")
 plt.show()
 
 #--------------------------------------------------------------------------------------
@@ -198,7 +198,7 @@ plt.pie(values, labels = labels, explode = explode, autopct = "%1.1f%%", shadow 
 plt.title("Pie Chart Top 5 Genres Game Distribution")
 plt.xlabel("genre")
 plt.ylabel("count")
-plt.savefig("Pie Chart genre_distribution.png")
+plt.savefig("Graphs/Pie Chart genre_distribution.png")
 plt.show()
 
 #--------------------------------------------------------------------------------------
@@ -267,7 +267,7 @@ plt.plot(yearly_avg.index, yearly_avg.values, marker='o')
 plt.title("Line Graph Average Score per Year")
 plt.xlabel("Release Year")
 plt.ylabel("Average Score")
-plt.savefig("Line Graph1 score_trend.png")
+plt.savefig("Graphs/Line Graph1 score_trend.png")
 plt.show()
 
 #Stacked Bar Chart: score_category per year
@@ -275,7 +275,7 @@ pd.crosstab(df["release_year"], df["score_category"]).plot(kind="bar", stacked=T
 plt.title("Stacked Bar Chart Score Category per Year")
 plt.xlabel("Release Year")
 plt.ylabel("Count")
-plt.savefig("Stacked Bar Chart score_category_stacked.png")
+plt.savefig("Graphs/Stacked Bar Chart score_category_stacked.png")
 plt.show()
 
 # 3. Histogram: score distribution
@@ -283,6 +283,6 @@ plt.hist(df["score"], bins=10)
 plt.title("Histogram Score Distribution")
 plt.xlabel("Score")
 plt.ylabel("Frequency")
-plt.savefig("Histogram score_distribution.png")
+plt.savefig("Graphs/Histogram score_distribution.png")
 plt.show()
 

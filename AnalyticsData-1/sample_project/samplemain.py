@@ -15,5 +15,5 @@ plt.xlabel("Year")
 plt.ylabel("Total")
 plt.title("Gauges: Number of railway tracks installed per year")
 
-plt.savefig("rail_gauges.png")
+plt.savefig("Graphs/rail_gauges.png")
 plt.show()

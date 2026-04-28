@@ -1,0 +1,6 @@
+login
+view page
+logoutlogin
+logout
+viewpage
+login

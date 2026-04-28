@@ -1,0 +1,5 @@
+Employee Name:		Salary:
+
+Ramesh			25000
+Sita			30000
+Arun			28000

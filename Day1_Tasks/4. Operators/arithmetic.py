@@ -1,0 +1,10 @@
+#Write a program to add two numbers using arithmetic operators.   
+a = int(input("Enter any value:"))
+b = int(input("Enter any value:"))
+print(a+b)
+print(a-b)
+print(a*b)
+print(a/b)
+print(a%b)
+print(a**b)
+print(a//b)

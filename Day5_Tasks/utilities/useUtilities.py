@@ -1,5 +1,5 @@
-from utilities.math_operations import *
-from utilities.string_operations import *
+from math_operations import *
+from string_operations import *
 a = int(input())
 b = int(input())
 str1 = input()

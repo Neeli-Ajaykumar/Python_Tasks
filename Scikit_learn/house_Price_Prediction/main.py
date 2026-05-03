@@ -176,3 +176,62 @@ print(classifier)
 print("KNN Accuracy:", accuracy_score(y_test, y_pred))
 print("{:.0%}".format(accuracy_score(y_test, y_pred)))
 
+# ============================================================
+# 8. Gradient Boosting Classifier
+# ============================================================
+
+from sklearn.ensemble import GradientBoostingClassifier
+
+classifier = GradientBoostingClassifier()
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+
+from sklearn.metrics import accuracy_score
+
+print('\n'+'-'*20+'Accuracy Score on the Test set'+'-'*20)
+print(classifier)
+
+print("Gradient Boosting Accuracy:", accuracy_score(y_test, y_pred))
+print("{:.0%}".format(accuracy_score(y_test, y_pred)))
+
+# ============================================================
+# 9. AdaBoost Classifier
+# ============================================================
+
+from sklearn.ensemble import AdaBoostClassifier
+
+classifier = AdaBoostClassifier()
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+
+from sklearn.metrics import accuracy_score
+
+print('\n'+'-'*20+'Accuracy Score on the Test set'+'-'*20)
+print(classifier)
+
+print("AdaBoost Accuracy:", accuracy_score(y_test, y_pred))
+print("{:.0%}".format(accuracy_score(y_test, y_pred)))
+
+# ============================================================
+# 10. Extra Trees Classifier
+# ============================================================
+
+from sklearn.ensemble import ExtraTreesClassifier
+
+classifier = ExtraTreesClassifier()
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+
+from sklearn.metrics import accuracy_score
+
+print('\n'+'-'*20+'Accuracy Score on the Test set'+'-'*20)
+print(classifier)
+
+print("Extra Trees Accuracy:", accuracy_score(y_test, y_pred))
+print("{:.0%}".format(accuracy_score(y_test, y_pred)))
+
+
+
+
+
+

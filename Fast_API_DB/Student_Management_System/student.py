@@ -76,14 +76,10 @@ def home():
 @app.post("/students")
 def create_student(student: Student, db: Session = Depends(get_db)):
 
-    existing_student = db.query(StudentDB).filter(
-        StudentDB.id == student.id).first()
+    existing_student = db.query(StudentDB).filter(StudentDB.id == student.id).first()
 
     if existing_student:
-        raise HTTPException(
-            status_code=400,
-            detail="Student ID already exists"
-        )
+        raise HTTPException(status_code=400, detail="Student ID already exists")
 
     new_student = StudentDB(
         id=student.id,
@@ -97,10 +93,7 @@ def create_student(student: Student, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_student)
 
-    return {
-        "message": "Student added successfully",
-        "data": new_student
-    }
+    return {"message": "Student added successfully", "data": new_student}
 
 # ------------------------------------------------------------
 # ✅ 2. READ ALL STUDENTS
@@ -118,15 +111,10 @@ def get_all_students(db: Session = Depends(get_db)):
 @app.get("/students/{student_id}")
 def get_student(student_id: int, db: Session = Depends(get_db)):
 
-    student = db.query(StudentDB).filter(
-        StudentDB.id == student_id
-    ).first()
+    student = db.query(StudentDB).filter(StudentDB.id == student_id).first()
 
     if not student:
-        raise HTTPException(
-            status_code=404,
-            detail="Student not found"
-        )
+        raise HTTPException(status_code=404, detail="Student not found")
 
     return student
 
@@ -134,21 +122,12 @@ def get_student(student_id: int, db: Session = Depends(get_db)):
 # ✅ 4. UPDATE STUDENT
 # ------------------------------------------------------------
 @app.put("/students/{student_id}")
-def update_student(
-    student_id: int,
-    updated_student: Student,
-    db: Session = Depends(get_db)
-):
+def update_student(student_id: int, updated_student: Student, db: Session = Depends(get_db)):
 
-    student = db.query(StudentDB).filter(
-        StudentDB.id == student_id
-    ).first()
+    student = db.query(StudentDB).filter(StudentDB.id == student_id).first()
 
     if not student:
-        raise HTTPException(
-            status_code=404,
-            detail="Student not found"
-        )
+        raise HTTPException(status_code=404, detail="Student not found")
 
     student.name = updated_student.name
     student.age = updated_student.age
@@ -158,33 +137,20 @@ def update_student(
     db.commit()
     db.refresh(student)
 
-    return {
-        "message": "Student updated successfully",
-        "data": student
-    }
+    return {"message": "Student updated successfully", "data": student}
 
 # ------------------------------------------------------------
 # ✅ 5. DELETE STUDENT
 # ------------------------------------------------------------
 @app.delete("/students/{student_id}")
-def delete_student(
-    student_id: int,
-    db: Session = Depends(get_db)
-):
+def delete_student(student_id: int, db: Session = Depends(get_db)):
 
-    student = db.query(StudentDB).filter(
-        StudentDB.id == student_id
-    ).first()
+    student = db.query(StudentDB).filter(StudentDB.id == student_id).first()
 
     if not student:
-        raise HTTPException(
-            status_code=404,
-            detail="Student not found"
-        )
+        raise HTTPException(status_code=404, detail="Student not found")
 
     db.delete(student)
     db.commit()
 
-    return {
-        "message": "Student deleted successfully"
-    }
+    return {"message": "Student deleted successfully"}

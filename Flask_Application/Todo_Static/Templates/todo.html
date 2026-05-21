@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Todo Page</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='todo_style.css') }}">
+
+</head>
+<body>
+
+    <h1>Todo Created Successfully</h1>
+   <h2>Your Todo: {{ task }}</h2>
+
+    <a href="/">Go Back</a>
+
+</body>
+</html>

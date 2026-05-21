@@ -1,0 +1,31 @@
+<html>
+<head>
+
+    <title>Basic Flask Application</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+    <h1>Welcome To Basic Flask Application</h1>
+
+    <form action="/todo">
+
+        <input type="text"
+               name="task"
+               placeholder="Enter Todo">
+
+        <button type="submit">
+            Enter
+        </button>
+    </form>
+	<ul>
+    		<li>Flask is a Python web framework used to create websites and web applications</li>
+    		<li>HTML stands for HyperText Markup Language. It is used to create webpage content like Headings, Buttons, Forms, Text and Links</li>
+    		<li>CSS stands for Cascading Style Sheets. It is used to style webpages like Colors, Fonts, Backgrounds and Layouts:</li>
+	</ul>
+
+</body>
+</html>

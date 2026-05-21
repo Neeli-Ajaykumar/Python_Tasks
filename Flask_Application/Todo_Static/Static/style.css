@@ -1,0 +1,41 @@
+body {
+    background-color: skyblue;
+    font-family: Arial;
+    margin-top: 50px;
+}
+
+h1 {
+    color: blue;
+    font-size: 40px;
+}
+
+input {
+    padding: 10px;
+    width: 250px;
+    border: 2px solid blue;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: orange;
+    color: white;
+    border: 2px solid red;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: red;
+}
+
+ul {
+    color: green;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+li {
+    margin: 1px 0;
+}

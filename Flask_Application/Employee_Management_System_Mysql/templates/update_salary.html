@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Update Salary</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='update_salary.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Update Salary</h1>
+
+        <form method="POST">
+
+            <input
+            type="number"
+            id="basic_salary"
+            name="basic_salary"
+            value="{{ salary.basic_salary }}"
+            placeholder="Basic Salary"
+            onkeyup="calculateSalary()"
+            required>
+
+            <input
+            type="number"
+            id="bonus"
+            name="bonus"
+            value="{{ salary.bonus }}"
+            placeholder="Bonus"
+            onkeyup="calculateSalary()"
+            required>
+
+            <input
+            type="number"
+            id="deduction"
+            name="deduction"
+            value="{{ salary.deduction }}"
+            placeholder="Deduction"
+            onkeyup="calculateSalary()"
+            required>
+
+            <input
+            type="number"
+            id="net_salary"
+            name="net_salary"
+            value="{{ salary.net_salary }}"
+            placeholder="Net Salary"
+            readonly>
+
+            <div class="button-group">
+
+                <button
+                type="submit"
+                class="update-btn">
+
+                    Update Salary
+
+                </button>
+
+                <a
+                href="/details"
+                class="back-btn">
+
+                    Back To Details
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>

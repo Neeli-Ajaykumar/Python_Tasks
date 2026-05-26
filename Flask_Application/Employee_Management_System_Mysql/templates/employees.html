@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Employees</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='employees.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Employee Form</h1>
+
+        <!-- Added id and onsubmit -->
+        <form method="POST"
+        id="employeeForm"
+        onsubmit="return validateEmployeeForm()">
+
+            <input
+            type="number"
+            id="id"
+            name="id"
+            placeholder="Employee ID"
+            required>
+
+            <!-- Added id -->
+            <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Employee Name"
+            required>
+
+            <input
+            type="number"
+            id="age"
+            name="age"
+            placeholder="Age">
+
+            <input
+            type="text"
+            id="gender"
+            name="gender"
+            placeholder="Gender">
+
+            <!-- Added id -->
+            <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email">
+
+            <!-- Added id -->
+            <input
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="Phone">
+
+            <input
+            type="text"
+            id="designation"
+            name="designation"
+            placeholder="Designation">
+
+            <button type="submit">
+                Add Employee
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- MAIN JS FILE -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>

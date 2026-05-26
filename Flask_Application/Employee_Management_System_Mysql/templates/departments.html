@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Departments</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='departments.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Department Form</h1>
+
+<form method="POST"
+onsubmit="return validateDepartmentForm()">
+
+<input
+type="text"
+id="department_name"
+name="department_name"
+placeholder="Department Name"
+required>
+
+<input
+type="text"
+id="department_head"
+name="department_head"
+placeholder="Department Head"
+required>
+
+<input
+type="text"
+id="department_location"
+name="department_location"
+placeholder="Department Location"
+required>
+
+<input
+type="number"
+id="total_employees"
+name="total_employees"
+placeholder="Total Employees"
+required>
+
+<button type="submit">
+Add Department
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>

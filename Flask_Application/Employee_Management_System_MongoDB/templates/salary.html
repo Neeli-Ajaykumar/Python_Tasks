@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Salary</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='salary.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Salary Form</h1>
+
+<form method="POST"
+onsubmit="return validateSalaryForm()">
+
+<input
+type="number"
+id="employee_id"
+name="employee_id"
+placeholder="Employee ID"
+required>
+
+<input
+type="number"
+id="basic_salary"
+name="basic_salary"
+placeholder="Basic Salary"
+onkeyup="calculateSalary()"
+required>
+
+<input
+type="number"
+id="bonus"
+name="bonus"
+placeholder="Bonus"
+onkeyup="calculateSalary()">
+
+<input
+type="number"
+id="deduction"
+name="deduction"
+placeholder="Deduction"
+onkeyup="calculateSalary()">
+
+<input
+type="number"
+id="net_salary"
+name="net_salary"
+placeholder="Net Salary"
+readonly>
+
+<button type="submit">
+Add Salary
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>

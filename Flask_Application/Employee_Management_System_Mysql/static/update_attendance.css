@@ -1,0 +1,74 @@
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#ea580c,#9a3412);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:450px;
+}
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    animation:slideLeft 0.8s ease;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+}
+
+input{
+    margin-bottom:18px;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+.button-group{
+    display:flex;
+    gap:15px;
+}
+
+.update-btn{
+    flex:1;
+    background:#ea580c;
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.back-btn{
+    flex:1;
+    background:#111827;
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    padding:14px;
+    border-radius:10px;
+}
+
+@keyframes slideLeft{
+    from{
+        transform:translateX(-80px);
+        opacity:0;
+    }
+    to{
+        transform:translateX(0);
+        opacity:1;
+    }
+}

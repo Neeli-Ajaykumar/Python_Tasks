@@ -8,50 +8,119 @@
     <link rel="stylesheet"
     href="{{ url_for('static', filename='departments.css') }}">
 
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body>
+
+<!-- BACKGROUND CIRCLES -->
+
+<div class="circle one"></div>
+
+<div class="circle two"></div>
+
+<div class="circle three"></div>
+
+<!-- DASHBOARD BUTTON -->
+
+<a href="/"
+class="dashboard-btn">
+
+    <i class="fa-solid fa-house"></i>
+
+    Dashboard
+
+</a>
+
+<!-- MAIN CONTAINER -->
 
 <div class="container">
 
 <div class="card">
 
-<h1>Department Form</h1>
+<h1>
+
+    <i class="fa-solid fa-building"></i>
+
+    Department Form
+
+</h1>
 
 <form method="POST"
 onsubmit="return validateDepartmentForm()">
 
-<input
-type="text"
-id="department_name"
-name="department_name"
-placeholder="Department Name"
-required>
+    <!-- DEPARTMENT NAME -->
 
-<input
-type="text"
-id="department_head"
-name="department_head"
-placeholder="Department Head"
-required>
+    <div class="input-box">
 
-<input
-type="text"
-id="department_location"
-name="department_location"
-placeholder="Department Location"
-required>
+        <i class="fa-solid fa-layer-group"></i>
 
-<input
-type="number"
-id="total_employees"
-name="total_employees"
-placeholder="Total Employees"
-required>
+        <input
+        type="text"
+        id="department_name"
+        name="department_name"
+        placeholder="Department Name"
+        required>
 
-<button type="submit">
-Add Department
-</button>
+    </div>
+
+    <!-- DEPARTMENT HEAD -->
+
+    <div class="input-box">
+
+        <i class="fa-solid fa-user-tie"></i>
+
+        <input
+        type="text"
+        id="department_head"
+        name="department_head"
+        placeholder="Department Head"
+        required>
+
+    </div>
+
+    <!-- LOCATION -->
+
+    <div class="input-box">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        <input
+        type="text"
+        id="department_location"
+        name="department_location"
+        placeholder="Department Location"
+        required>
+
+    </div>
+
+    <!-- TOTAL EMPLOYEES -->
+
+    <div class="input-box">
+
+        <i class="fa-solid fa-users"></i>
+
+        <input
+        type="number"
+        id="total_employees"
+        name="total_employees"
+        placeholder="Total Employees"
+        required>
+
+    </div>
+
+    <!-- BUTTON -->
+
+    <button type="submit">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add Department
+
+    </button>
 
 </form>
 

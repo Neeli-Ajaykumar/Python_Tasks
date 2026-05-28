@@ -5,21 +5,62 @@
 
     <title>Employees</title>
 
+    <!-- CSS -->
     <link rel="stylesheet"
     href="{{ url_for('static', filename='employees.css') }}">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
-    <div class="container">
+<!-- BACKGROUND ANIMATION -->
 
-        <h1>Employee Form</h1>
+<div class="circle one"></div>
 
-        <!-- Added id and onsubmit -->
-        <form method="POST"
-        id="employeeForm"
-        onsubmit="return validateEmployeeForm()">
+<div class="circle two"></div>
+
+<div class="circle three"></div>
+
+<!-- DASHBOARD BUTTON -->
+
+<a href="/"
+class="dashboard-btn">
+
+    <i class="fa-solid fa-house"></i>
+
+    Dashboard
+
+</a>
+
+<!-- MAIN CONTAINER -->
+
+<div class="container">
+
+    <!-- HEADING -->
+
+    <h1>
+
+        <i class="fa-solid fa-users"></i>
+
+        Employee Form
+
+    </h1>
+
+    <!-- FORM -->
+
+    <form method="POST"
+    id="employeeForm"
+    onsubmit="return validateEmployeeForm()">
+
+        <!-- EMPLOYEE ID -->
+
+        <div class="input-box">
+
+            <i class="fa-solid fa-id-card"></i>
 
             <input
             type="number"
@@ -28,7 +69,34 @@
             placeholder="Employee ID"
             required>
 
-            <!-- Added id -->
+        </div>
+
+        <!-- DEPARTMENT ID -->
+
+        <div class="input-box">
+
+    <i class="fa-solid fa-building"></i>
+
+    <select name="department_id" id="department_id" required>
+
+        <option value="">Select Department</option>
+
+        {% for dept in departments %}
+            <option value="{{ dept.id }}">
+                {{ dept.department_name }}
+            </option>
+        {% endfor %}
+
+    </select>
+
+</div>
+
+        <!-- EMPLOYEE NAME -->
+
+        <div class="input-box">
+
+            <i class="fa-solid fa-user"></i>
+
             <input
             type="text"
             id="name"
@@ -36,11 +104,27 @@
             placeholder="Employee Name"
             required>
 
+        </div>
+
+        <!-- AGE -->
+
+        <div class="input-box">
+
+            <i class="fa-solid fa-calendar"></i>
+
             <input
             type="number"
             id="age"
             name="age"
             placeholder="Age">
+
+        </div>
+
+        <!-- GENDER -->
+
+        <div class="input-box">
+
+            <i class="fa-solid fa-venus-mars"></i>
 
             <input
             type="text"
@@ -48,19 +132,41 @@
             name="gender"
             placeholder="Gender">
 
-            <!-- Added id -->
+        </div>
+
+        <!-- EMAIL -->
+
+        <div class="input-box">
+
+            <i class="fa-solid fa-envelope"></i>
+
             <input
             type="email"
             id="email"
             name="email"
             placeholder="Email">
 
-            <!-- Added id -->
+        </div>
+
+        <!-- PHONE -->
+
+        <div class="input-box">
+
+            <i class="fa-solid fa-phone"></i>
+
             <input
             type="text"
             id="phone"
             name="phone"
             placeholder="Phone">
+
+        </div>
+
+        <!-- DESIGNATION -->
+
+        <div class="input-box">
+
+            <i class="fa-solid fa-briefcase"></i>
 
             <input
             type="text"
@@ -68,16 +174,52 @@
             name="designation"
             placeholder="Designation">
 
-            <button type="submit">
-                Add Employee
-            </button>
+        </div>
 
-        </form>
+        <!-- ADDRESS -->
 
-    </div>
+        <div class="input-box">
 
-    <!-- MAIN JS FILE -->
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
+            <i class="fa-solid fa-location-dot"></i>
+
+            <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Address">
+
+        </div>
+
+        <!-- JOINING DATE -->
+
+        <div class="input-box">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+            <input
+            type="date"
+            id="joining_date"
+            name="joining_date">
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <button type="submit">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Employee
+
+        </button>
+
+    </form>
+
+</div>
+
+<!-- JS -->
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
 
 </body>
 </html>

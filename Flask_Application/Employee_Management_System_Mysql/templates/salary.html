@@ -5,60 +5,152 @@
 
     <title>Salary</title>
 
+    <!-- CSS -->
     <link rel="stylesheet"
     href="{{ url_for('static', filename='salary.css') }}">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
+<!-- BACKGROUND ANIMATION -->
+
+<div class="circle one"></div>
+
+<div class="circle two"></div>
+
+<div class="circle three"></div>
+
+<!-- DASHBOARD BUTTON -->
+
+<a href="/"
+class="dashboard-btn">
+
+    <i class="fa-solid fa-house"></i>
+
+    Dashboard
+
+</a>
+
+<!-- MAIN CONTAINER -->
+
 <div class="container">
 
 <div class="card">
 
-<h1>Salary Form</h1>
+<h1>
+
+    <i class="fa-solid fa-money-bill-wave"></i>
+
+    Salary Form
+
+</h1>
 
 <form method="POST"
 onsubmit="return validateSalaryForm()">
 
-<input
-type="number"
-id="employee_id"
-name="employee_id"
-placeholder="Employee ID"
-required>
+<!-- EMPLOYEE ID -->
 
-<input
-type="number"
-id="basic_salary"
-name="basic_salary"
-placeholder="Basic Salary"
-onkeyup="calculateSalary()"
-required>
+<div class="input-box">
 
-<input
-type="number"
-id="bonus"
-name="bonus"
-placeholder="Bonus"
-onkeyup="calculateSalary()">
+    <i class="fa-solid fa-id-card"></i>
 
-<input
-type="number"
-id="deduction"
-name="deduction"
-placeholder="Deduction"
-onkeyup="calculateSalary()">
+    <input
+    type="number"
+    id="employee_id"
+    name="employee_id"
+    placeholder="Employee ID"
+    required>
 
-<input
-type="number"
-id="net_salary"
-name="net_salary"
-placeholder="Net Salary"
-readonly>
+</div>
+
+<!-- BASIC SALARY -->
+
+<div class="input-box">
+
+    <i class="fa-solid fa-wallet"></i>
+
+    <input
+    type="number"
+    id="basic_salary"
+    name="basic_salary"
+    placeholder="Basic Salary"
+    onkeyup="calculateSalary()"
+    required>
+
+</div>
+
+<!-- SALARY MONTH -->
+
+<div class="input-box">
+
+    <i class="fa-solid fa-calendar-days"></i>
+
+    <input
+    type="month"
+    id="salary_month"
+    name="salary_month"
+    required>
+
+</div>
+
+<!-- BONUS -->
+
+<div class="input-box">
+
+    <i class="fa-solid fa-gift"></i>
+
+    <input
+    type="number"
+    id="bonus"
+    name="bonus"
+    placeholder="Bonus"
+    onkeyup="calculateSalary()">
+
+</div>
+
+<!-- DEDUCTION -->
+
+<div class="input-box">
+
+    <i class="fa-solid fa-minus"></i>
+
+    <input
+    type="number"
+    id="deduction"
+    name="deduction"
+    placeholder="Deduction"
+    onkeyup="calculateSalary()">
+
+</div>
+
+<!-- NET SALARY -->
+
+<div class="input-box full-width">
+
+    <i class="fa-solid fa-coins"></i>
+
+    <input
+    type="number"
+    id="net_salary"
+    name="net_salary"
+    placeholder="Net Salary"
+    readonly>
+
+</div>
+
+<!-- BUTTON -->
 
 <button type="submit">
-Add Salary
+
+    <i class="fa-solid fa-plus"></i>
+
+    Add Salary
+
 </button>
 
 </form>

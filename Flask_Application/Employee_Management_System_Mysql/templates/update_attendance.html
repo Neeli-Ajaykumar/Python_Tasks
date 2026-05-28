@@ -8,48 +8,231 @@
     <link rel="stylesheet"
           href="{{ url_for('static', filename='update_attendance.css') }}">
 
+    <!-- FONT AWESOME ICONS -->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body>
+
+<!-- DASHBOARD BUTTON -->
+
+<a href="/" class="dashboard-btn">
+    <i class="fa-solid fa-house"></i>
+    Dashboard
+</a>
 
 <div class="container">
 
     <div class="card">
 
-        <h1>Update Attendance</h1>
+        <h1>
+            <i class="fa-solid fa-calendar-check"></i>
+            Update Attendance
+        </h1>
 
         <form method="POST">
 
-            <input type="date"
-                   name="attendance_date"
-                   value="{{ attendance.attendance_date }}"
-                   required>
+            <!-- ATTENDANCE DATE -->
 
-            <input type="time"
-                   name="check_in_time"
-                   value="{{ attendance.check_in_time[:5] if attendance.check_in_time else '' }}"
-                   required>
+            <div class="input-box">
 
-            <input type="time"
-                   name="check_out_time"
-                   value="{{ attendance.check_out_time[:5] if attendance.check_out_time else '' }}"
-                   required>
+                <i class="fa-solid fa-calendar-days"></i>
 
-            <input type="text"
-                   name="status"
-                   value="{{ attendance.status }}"
-                   placeholder="Status"
-                   required>
+                <input
+                type="date"
+                id="attendance_date"
+                name="attendance_date"
+                value="{{ attendance.attendance_date }}"
+                required>
 
-            <!-- FIXED BUTTON LAYOUT -->
+            </div>
+
+            <!-- CHECK IN TIME -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-clock"></i>
+
+                <input
+                type="time"
+                id="check_in_time"
+                name="check_in_time"
+                value="{{ attendance.check_in_time[:5] if attendance.check_in_time else '' }}">
+
+            </div>
+
+            <!-- CHECK OUT TIME -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-business-time"></i>
+
+                <input
+                type="time"
+                id="check_out_time"
+                name="check_out_time"
+                value="{{ attendance.check_out_time[:5] if attendance.check_out_time else '' }}">
+
+            </div>
+
+            <!-- STATUS -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                <select
+                id="status"
+                name="status"
+                onchange="calculateAttendanceDays()"
+                required>
+
+                    <option value="">
+                        Select Status
+                    </option>
+
+                    <option value="present"
+                        {% if attendance.status|lower == 'present' %}
+                        selected
+                        {% endif %}>
+                        Present
+                    </option>
+
+                    <option value="absent"
+                        {% if attendance.status|lower == 'absent' %}
+                        selected
+                        {% endif %}>
+                        Absent
+                    </option>
+
+                    <option value="leave"
+                        {% if attendance.status|lower == 'leave' %}
+                        selected
+                        {% endif %}>
+                        Leave
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- LEAVE TYPE -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-file-circle-minus"></i>
+
+                <input
+                type="text"
+                id="leave_type"
+                name="leave_type"
+                value="{{ attendance.leave_type }}"
+                placeholder="Leave Type">
+
+            </div>
+
+            <!-- LEAVE REASON -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-comment-medical"></i>
+
+                <input
+                type="text"
+                id="leave_reason"
+                name="leave_reason"
+                value="{{ attendance.leave_reason }}"
+                placeholder="Leave Reason">
+
+            </div>
+
+            <!-- LEAVE DAYS -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-bed"></i>
+
+                <input
+                type="number"
+                id="leave_days"
+                name="leave_days"
+                value="{{ attendance.leave_days }}"
+                placeholder="Leave Days"
+                onkeyup="calculateAttendanceDays()">
+
+            </div>
+
+            <!-- TOTAL PRESENT DAYS -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <input
+                type="number"
+                id="total_present_days"
+                name="total_present_days"
+                value="{{ attendance.total_present_days }}"
+                placeholder="Total Present Days"
+                readonly>
+
+            </div>
+
+            <!-- TOTAL ABSENT DAYS -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+                <input
+                type="number"
+                id="total_absent_days"
+                name="total_absent_days"
+                value="{{ attendance.total_absent_days }}"
+                placeholder="Total Absent Days"
+                readonly>
+
+            </div>
+
+            <!-- TOTAL LEAVE DAYS -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-plane-departure"></i>
+
+                <input
+                type="number"
+                id="total_leave_days"
+                name="total_leave_days"
+                value="{{ attendance.total_leave_days }}"
+                placeholder="Total Leave Days"
+                readonly>
+
+            </div>
+
+            <!-- BUTTONS -->
+
             <div class="button-group">
 
-                <button type="submit" class="update-btn">
+                <button
+                type="submit"
+                class="update-btn">
+
+                    <i class="fa-solid fa-pen-to-square"></i>
                     Update Attendance
+
                 </button>
 
-                <a href="/details" class="back-btn">
+                <a
+                href="/details"
+                class="back-btn">
+
+                    <i class="fa-solid fa-arrow-left"></i>
                     Back To Details
+
                 </a>
 
             </div>
@@ -59,6 +242,18 @@
     </div>
 
 </div>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+<script>
+
+window.addEventListener("load", function () {
+
+    calculateAttendanceDays();
+
+});
+
+</script>
 
 </body>
 </html>

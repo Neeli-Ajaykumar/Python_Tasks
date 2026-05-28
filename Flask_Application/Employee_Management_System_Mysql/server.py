@@ -17,16 +17,37 @@ db = mysql.connector.connect(
 cursor = db.cursor(dictionary=True)
 
 # ==========================================================
-# EMPLOYEE API
+# LOGIN API
+# ==========================================================
+
+@app.route('/login', methods=['POST'])
+def login():
+
+    data = request.json
+
+    username = data.get("username")
+    password = data.get("password")
+
+    cursor.execute(
+        "SELECT * FROM users WHERE username=%s AND password=%s",
+        (username, password)
+    )
+
+    user = cursor.fetchone()
+
+    if user:
+        return jsonify({"status": "success"})
+    else:
+        return jsonify({"status": "failed"})
+
+# ==========================================================
+# EMPLOYEES API
 # ==========================================================
 
 @app.route('/employees', methods=['GET', 'POST'])
 def employees():
 
-    # ======================================================
     # ADD EMPLOYEE
-    # ======================================================
-
     if request.method == 'POST':
 
         data = request.json
@@ -34,15 +55,18 @@ def employees():
         query = """
         INSERT INTO employees
         (
-        id,
-        name,
-        age,
-        gender,
-        email,
-        phone,
-        designation
+            id,
+            name,
+            age,
+            gender,
+            email,
+            phone,
+            address,
+            designation,
+            joining_date,
+            department_id
         )
-        VALUES (%s,%s,%s,%s,%s,%s,%s)
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
         """
 
         values = (
@@ -52,44 +76,38 @@ def employees():
             data['gender'],
             data['email'],
             data['phone'],
-            data['designation']
+            data.get('address', ''),
+            data['designation'],
+            data.get('joining_date', ''),
+            data['department_id']
         )
 
         cursor.execute(query, values)
         db.commit()
 
-        return jsonify({
-            "message": "Employee Added Successfully"
-        })
+        return jsonify({"message": "Employee Added Successfully"})
 
-    # ======================================================
     # GET ALL EMPLOYEES
-    # ======================================================
-
     cursor.execute("SELECT * FROM employees")
-
     employees = cursor.fetchall()
 
-    return jsonify({
-        "data": employees
-    })
+    return jsonify({"data": employees})
 
 
 # ==========================================================
-# GET SINGLE EMPLOYEE
+# GET SINGLE EMPLOYEE (IMPORTANT FIX)
 # ==========================================================
 
 @app.route('/employees/<int:id>', methods=['GET'])
 def get_employee(id):
 
-    cursor.execute(
-        "SELECT * FROM employees WHERE id=%s",
-        (id,)
-    )
-
+    cursor.execute("SELECT * FROM employees WHERE id=%s", (id,))
     employee = cursor.fetchone()
 
-    return jsonify(employee)
+    if employee:
+        return jsonify(employee)
+
+    return jsonify({"error": "Employee not found"}), 404
 
 
 # ==========================================================
@@ -104,12 +122,15 @@ def update_employee(id):
     query = """
     UPDATE employees
     SET
-    name=%s,
-    age=%s,
-    gender=%s,
-    email=%s,
-    phone=%s,
-    designation=%s
+        name=%s,
+        age=%s,
+        gender=%s,
+        email=%s,
+        phone=%s,
+        address=%s,
+        designation=%s,
+        joining_date=%s,
+        department_id=%s
     WHERE id=%s
     """
 
@@ -119,16 +140,17 @@ def update_employee(id):
         data['gender'],
         data['email'],
         data['phone'],
+        data.get('address', ''),
         data['designation'],
+        data.get('joining_date', ''),
+        data['department_id'],
         id
     )
 
     cursor.execute(query, values)
     db.commit()
 
-    return jsonify({
-        "message": "Employee Updated Successfully"
-    })
+    return jsonify({"message": "Employee Updated Successfully"})
 
 
 # ==========================================================
@@ -138,41 +160,21 @@ def update_employee(id):
 @app.route('/employees/<int:id>', methods=['DELETE'])
 def delete_employee(id):
 
-    # DELETE ATTENDANCE FIRST
-    cursor.execute(
-        "DELETE FROM attendance WHERE employee_id=%s",
-        (id,)
-    )
-
-    # DELETE SALARY FIRST
-    cursor.execute(
-        "DELETE FROM salaries WHERE employee_id=%s",
-        (id,)
-    )
-
-    # DELETE EMPLOYEE
-    cursor.execute(
-        "DELETE FROM employees WHERE id=%s",
-        (id,)
-    )
+    cursor.execute("DELETE FROM attendance WHERE employee_id=%s", (id,))
+    cursor.execute("DELETE FROM salaries WHERE employee_id=%s", (id,))
+    cursor.execute("DELETE FROM employees WHERE id=%s", (id,))
 
     db.commit()
 
-    return jsonify({
-        "message": "Employee Deleted Successfully"
-    })
+    return jsonify({"message": "Employee Deleted Successfully"})
 
 
 # ==========================================================
-# DEPARTMENT API
+# DEPARTMENTS API
 # ==========================================================
 
 @app.route('/departments', methods=['GET', 'POST'])
 def departments():
-
-    # ======================================================
-    # ADD DEPARTMENT
-    # ======================================================
 
     if request.method == 'POST':
 
@@ -181,10 +183,10 @@ def departments():
         query = """
         INSERT INTO departments
         (
-        department_name,
-        department_head,
-        department_location,
-        total_employees
+            department_name,
+            department_head,
+            department_location,
+            total_employees
         )
         VALUES (%s,%s,%s,%s)
         """
@@ -199,21 +201,10 @@ def departments():
         cursor.execute(query, values)
         db.commit()
 
-        return jsonify({
-            "message": "Department Added Successfully"
-        })
-
-    # ======================================================
-    # GET ALL DEPARTMENTS
-    # ======================================================
+        return jsonify({"message": "Department Added Successfully"})
 
     cursor.execute("SELECT * FROM departments")
-
-    departments = cursor.fetchall()
-
-    return jsonify({
-        "data": departments
-    })
+    return jsonify({"data": cursor.fetchall()})
 
 
 # ==========================================================
@@ -228,10 +219,10 @@ def update_department(id):
     query = """
     UPDATE departments
     SET
-    department_name=%s,
-    department_head=%s,
-    department_location=%s,
-    total_employees=%s
+        department_name=%s,
+        department_head=%s,
+        department_location=%s,
+        total_employees=%s
     WHERE id=%s
     """
 
@@ -246,9 +237,7 @@ def update_department(id):
     cursor.execute(query, values)
     db.commit()
 
-    return jsonify({
-        "message": "Department Updated Successfully"
-    })
+    return jsonify({"message": "Department Updated Successfully"})
 
 
 # ==========================================================
@@ -258,16 +247,10 @@ def update_department(id):
 @app.route('/departments/<int:id>', methods=['DELETE'])
 def delete_department(id):
 
-    cursor.execute(
-        "DELETE FROM departments WHERE id=%s",
-        (id,)
-    )
-
+    cursor.execute("DELETE FROM departments WHERE id=%s", (id,))
     db.commit()
 
-    return jsonify({
-        "message": "Department Deleted Successfully"
-    })
+    return jsonify({"message": "Department Deleted Successfully"})
 
 
 # ==========================================================
@@ -277,10 +260,6 @@ def delete_department(id):
 @app.route('/salary', methods=['GET', 'POST'])
 def salary():
 
-    # ======================================================
-    # ADD SALARY
-    # ======================================================
-
     if request.method == 'POST':
 
         data = request.json
@@ -288,13 +267,14 @@ def salary():
         query = """
         INSERT INTO salaries
         (
-        employee_id,
-        basic_salary,
-        bonus,
-        deduction,
-        net_salary
+            employee_id,
+            basic_salary,
+            bonus,
+            deduction,
+            net_salary,
+            salary_month
         )
-        VALUES (%s,%s,%s,%s,%s)
+        VALUES (%s,%s,%s,%s,%s,%s)
         """
 
         values = (
@@ -302,27 +282,17 @@ def salary():
             data['basic_salary'],
             data['bonus'],
             data['deduction'],
-            data['net_salary']
+            data['net_salary'],
+            data.get('salary_month', '')
         )
 
         cursor.execute(query, values)
         db.commit()
 
-        return jsonify({
-            "message": "Salary Added Successfully"
-        })
-
-    # ======================================================
-    # GET ALL SALARIES
-    # ======================================================
+        return jsonify({"message": "Salary Added Successfully"})
 
     cursor.execute("SELECT * FROM salaries")
-
-    salaries = cursor.fetchall()
-
-    return jsonify({
-        "data": salaries
-    })
+    return jsonify({"data": cursor.fetchall()})
 
 
 # ==========================================================
@@ -337,10 +307,11 @@ def update_salary(employee_id):
     query = """
     UPDATE salaries
     SET
-    basic_salary=%s,
-    bonus=%s,
-    deduction=%s,
-    net_salary=%s
+        basic_salary=%s,
+        bonus=%s,
+        deduction=%s,
+        net_salary=%s,
+        salary_month=%s
     WHERE employee_id=%s
     """
 
@@ -349,15 +320,14 @@ def update_salary(employee_id):
         data['bonus'],
         data['deduction'],
         data['net_salary'],
+        data.get('salary_month', ''),
         employee_id
     )
 
     cursor.execute(query, values)
     db.commit()
 
-    return jsonify({
-        "message": "Salary Updated Successfully"
-    })
+    return jsonify({"message": "Salary Updated Successfully"})
 
 
 # ==========================================================
@@ -367,16 +337,10 @@ def update_salary(employee_id):
 @app.route('/salary/<int:employee_id>', methods=['DELETE'])
 def delete_salary(employee_id):
 
-    cursor.execute(
-        "DELETE FROM salaries WHERE employee_id=%s",
-        (employee_id,)
-    )
-
+    cursor.execute("DELETE FROM salaries WHERE employee_id=%s", (employee_id,))
     db.commit()
 
-    return jsonify({
-        "message": "Salary Deleted Successfully"
-    })
+    return jsonify({"message": "Salary Deleted Successfully"})
 
 
 # ==========================================================
@@ -386,10 +350,6 @@ def delete_salary(employee_id):
 @app.route('/attendance', methods=['GET', 'POST'])
 def attendance():
 
-    # ======================================================
-    # ADD ATTENDANCE
-    # ======================================================
-
     if request.method == 'POST':
 
         data = request.json
@@ -397,13 +357,19 @@ def attendance():
         query = """
         INSERT INTO attendance
         (
-        employee_id,
-        attendance_date,
-        check_in_time,
-        check_out_time,
-        status
+            employee_id,
+            attendance_date,
+            check_in_time,
+            check_out_time,
+            status,
+            leave_type,
+            leave_reason,
+            leave_days,
+            total_present_days,
+            total_absent_days,
+            total_leave_days
         )
-        VALUES (%s,%s,%s,%s,%s)
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
         """
 
         values = (
@@ -411,27 +377,22 @@ def attendance():
             data['attendance_date'],
             data['check_in_time'],
             data['check_out_time'],
-            data['status']
+            data['status'],
+            data.get('leave_type', ''),
+            data.get('leave_reason', ''),
+            data.get('leave_days', 0),
+            data.get('total_present_days', 0),
+            data.get('total_absent_days', 0),
+            data.get('total_leave_days', 0)
         )
 
         cursor.execute(query, values)
         db.commit()
 
-        return jsonify({
-            "message": "Attendance Added Successfully"
-        })
-
-    # ======================================================
-    # GET ALL ATTENDANCE
-    # ======================================================
+        return jsonify({"message": "Attendance Added Successfully"})
 
     cursor.execute("SELECT * FROM attendance")
-
-    attendance = cursor.fetchall()
-
-    return jsonify({
-        "data": attendance
-    })
+    return jsonify({"data": cursor.fetchall()})
 
 
 # ==========================================================
@@ -446,10 +407,16 @@ def update_attendance(employee_id):
     query = """
     UPDATE attendance
     SET
-    attendance_date=%s,
-    check_in_time=%s,
-    check_out_time=%s,
-    status=%s
+        attendance_date=%s,
+        check_in_time=%s,
+        check_out_time=%s,
+        status=%s,
+        leave_type=%s,
+        leave_reason=%s,
+        leave_days=%s,
+        total_present_days=%s,
+        total_absent_days=%s,
+        total_leave_days=%s
     WHERE employee_id=%s
     """
 
@@ -458,15 +425,19 @@ def update_attendance(employee_id):
         data['check_in_time'],
         data['check_out_time'],
         data['status'],
+        data.get('leave_type', ''),
+        data.get('leave_reason', ''),
+        data.get('leave_days', 0),
+        data.get('total_present_days', 0),
+        data.get('total_absent_days', 0),
+        data.get('total_leave_days', 0),
         employee_id
     )
 
     cursor.execute(query, values)
     db.commit()
 
-    return jsonify({
-        "message": "Attendance Updated Successfully"
-    })
+    return jsonify({"message": "Attendance Updated Successfully"})
 
 
 # ==========================================================
@@ -476,16 +447,10 @@ def update_attendance(employee_id):
 @app.route('/attendance/<int:employee_id>', methods=['DELETE'])
 def delete_attendance(employee_id):
 
-    cursor.execute(
-        "DELETE FROM attendance WHERE employee_id=%s",
-        (employee_id,)
-    )
-
+    cursor.execute("DELETE FROM attendance WHERE employee_id=%s", (employee_id,))
     db.commit()
 
-    return jsonify({
-        "message": "Attendance Deleted Successfully"
-    })
+    return jsonify({"message": "Attendance Deleted Successfully"})
 
 
 # ==========================================================

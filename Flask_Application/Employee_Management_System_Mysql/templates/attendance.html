@@ -6,60 +6,185 @@
     <title>Attendance</title>
 
     <link rel="stylesheet"
-    href="{{ url_for('static', filename='attendance.css') }}">
+          href="{{ url_for('static', filename='attendance.css') }}">
+
+    <!-- ICONS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="background-animation">
 
-<div class="card">
-
-<h1>Attendance Form</h1>
-
-<form method="POST"
-onsubmit="return validateAttendanceForm()">
-
-<input
-type="number"
-id="employee_id"
-name="employee_id"
-placeholder="Employee ID"
-required>
-
-<input
-type="date"
-id="attendance_date"
-name="attendance_date"
-required>
-
-<input
-type="time"
-id="check_in_time"
-name="check_in_time"
-required>
-
-<input
-type="time"
-id="check_out_time"
-name="check_out_time"
-required>
-
-<input
-type="text"
-id="status"
-name="status"
-placeholder="Status"
-required>
-
-<button type="submit">
-Add Attendance
-</button>
-
-</form>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
 
 </div>
+
+<div class="container">
+
+    <!-- DASHBOARD BUTTON -->
+    <a href="/" class="dashboard-btn">
+
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+
+    </a>
+
+    <div class="card">
+
+        <div class="icon">
+
+            <i class="fa-solid fa-calendar-check"></i>
+
+        </div>
+
+        <h1>Attendance Form</h1>
+
+        <form method="POST"
+              onsubmit="return validateAttendanceForm()">
+
+            <!-- EMPLOYEE ID -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-id-card"></i>
+
+                <input type="number"
+                       id="employee_id"
+                       name="employee_id"
+                       placeholder="Employee ID"
+                       required>
+
+            </div>
+
+            <!-- DATE -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-calendar"></i>
+
+                <input type="date"
+                       id="attendance_date"
+                       name="attendance_date"
+                       required>
+
+            </div>
+
+            <!-- CHECK IN -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-clock"></i>
+
+                <input type="time"
+                       id="check_in_time"
+                       name="check_in_time">
+
+            </div>
+
+            <!-- CHECK OUT -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-hourglass-end"></i>
+
+                <input type="time"
+                       id="check_out_time"
+                       name="check_out_time">
+
+            </div>
+
+            <!-- STATUS -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                <select id="status"
+                        name="status"
+                        onchange="calculateAttendanceDays()"
+                        required>
+
+                    <option value="">Select Status</option>
+
+                    <option value="present">
+                        Present
+                    </option>
+
+                    <option value="absent">
+                        Absent
+                    </option>
+
+                    <option value="leave">
+                        Leave
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- LEAVE DAYS -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-bed"></i>
+
+                <input type="number"
+                       id="leave_days"
+                       name="leave_days"
+                       placeholder="Leave Days"
+                       onkeyup="calculateAttendanceDays()">
+
+            </div>
+
+            <!-- PRESENT DAYS -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <input type="number"
+                       id="total_present_days"
+                       name="total_present_days"
+                       placeholder="Total Present Days"
+                       readonly>
+
+            </div>
+
+            <!-- ABSENT DAYS -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+                <input type="number"
+                       id="total_absent_days"
+                       name="total_absent_days"
+                       placeholder="Total Absent Days"
+                       readonly>
+
+            </div>
+
+            <!-- LEAVE DAYS -->
+            <div class="input-box">
+
+                <i class="fa-solid fa-person-walking-arrow-right"></i>
+
+                <input type="number"
+                       id="total_leave_days"
+                       name="total_leave_days"
+                       placeholder="Total Leave Days"
+                       readonly>
+
+            </div>
+
+            <button type="submit">
+
+                <i class="fa-solid fa-plus"></i>
+                Add Attendance
+
+            </button>
+
+        </form>
+
+    </div>
 
 </div>
 

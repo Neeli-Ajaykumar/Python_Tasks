@@ -5,61 +5,144 @@
 
     <title>Update Salary</title>
 
+    <!-- CSS -->
     <link rel="stylesheet"
     href="{{ url_for('static', filename='update_salary.css') }}">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
+<!-- BACKGROUND CIRCLES -->
+
+<div class="circle one"></div>
+
+<div class="circle two"></div>
+
+<div class="circle three"></div>
+
+<!-- DASHBOARD BUTTON -->
+
+<a href="/"
+class="dashboard-btn">
+
+    <i class="fa-solid fa-house"></i>
+
+    Dashboard
+
+</a>
+
+<!-- MAIN CONTAINER -->
+
 <div class="container">
 
     <div class="card">
 
-        <h1>Update Salary</h1>
+        <h1>
+
+            <i class="fa-solid fa-money-check-dollar"></i>
+
+            Update Salary
+
+        </h1>
 
         <form method="POST">
 
-            <input
-            type="number"
-            id="basic_salary"
-            name="basic_salary"
-            value="{{ salary.basic_salary }}"
-            placeholder="Basic Salary"
-            onkeyup="calculateSalary()"
-            required>
+            <!-- BASIC SALARY -->
 
-            <input
-            type="number"
-            id="bonus"
-            name="bonus"
-            value="{{ salary.bonus }}"
-            placeholder="Bonus"
-            onkeyup="calculateSalary()"
-            required>
+            <div class="input-box">
 
-            <input
-            type="number"
-            id="deduction"
-            name="deduction"
-            value="{{ salary.deduction }}"
-            placeholder="Deduction"
-            onkeyup="calculateSalary()"
-            required>
+                <i class="fa-solid fa-wallet"></i>
 
-            <input
-            type="number"
-            id="net_salary"
-            name="net_salary"
-            value="{{ salary.net_salary }}"
-            placeholder="Net Salary"
-            readonly>
+                <input
+                type="number"
+                id="basic_salary"
+                name="basic_salary"
+                value="{{ salary.basic_salary }}"
+                placeholder="Basic Salary"
+                onkeyup="calculateSalary()"
+                required>
+
+            </div>
+
+            <!-- SALARY MONTH -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <input
+                type="month"
+                id="salary_month"
+                name="salary_month"
+                value="{{ salary.salary_month }}"
+                required>
+
+            </div>
+
+            <!-- BONUS -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-gift"></i>
+
+                <input
+                type="number"
+                id="bonus"
+                name="bonus"
+                value="{{ salary.bonus }}"
+                placeholder="Bonus"
+                onkeyup="calculateSalary()"
+                required>
+
+            </div>
+
+            <!-- DEDUCTION -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-minus"></i>
+
+                <input
+                type="number"
+                id="deduction"
+                name="deduction"
+                value="{{ salary.deduction }}"
+                placeholder="Deduction"
+                onkeyup="calculateSalary()"
+                required>
+
+            </div>
+
+            <!-- NET SALARY -->
+
+            <div class="input-box full-width">
+
+                <i class="fa-solid fa-coins"></i>
+
+                <input
+                type="number"
+                id="net_salary"
+                name="net_salary"
+                value="{{ salary.net_salary }}"
+                placeholder="Net Salary"
+                readonly>
+
+            </div>
+
+            <!-- BUTTONS -->
 
             <div class="button-group">
 
                 <button
                 type="submit"
                 class="update-btn">
+
+                    <i class="fa-solid fa-pen"></i>
 
                     Update Salary
 
@@ -68,6 +151,8 @@
                 <a
                 href="/details"
                 class="back-btn">
+
+                    <i class="fa-solid fa-arrow-left"></i>
 
                     Back To Details
 

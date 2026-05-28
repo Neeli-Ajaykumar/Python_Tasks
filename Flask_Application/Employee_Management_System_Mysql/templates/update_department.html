@@ -5,54 +5,139 @@
 
     <title>Update Department</title>
 
+    <!-- CSS -->
     <link rel="stylesheet"
-          href="{{ url_for('static', filename='update_department.css') }}">
+    href="{{ url_for('static', filename='update_department.css') }}">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
+<!-- BACKGROUND CIRCLES -->
+
+<div class="circle one"></div>
+
+<div class="circle two"></div>
+
+<div class="circle three"></div>
+
+<!-- DASHBOARD BUTTON -->
+
+<a href="/"
+class="dashboard-btn">
+
+    <i class="fa-solid fa-house"></i>
+
+    Dashboard
+
+</a>
+
+<!-- MAIN CONTAINER -->
+
 <div class="container">
 
     <div class="card">
 
-        <h1>Update Department</h1>
+        <h1>
+
+            <i class="fa-solid fa-building-user"></i>
+
+            Update Department
+
+        </h1>
 
         <form method="POST">
 
-            <input type="text"
-                   name="department_name"
-                   value="{{ department.department_name }}"
-                   placeholder="Department Name"
-                   required>
+            <!-- DEPARTMENT NAME -->
 
-            <input type="text"
-                   name="department_head"
-                   value="{{ department.department_head }}"
-                   placeholder="Department Head"
-                   required>
+            <div class="input-box">
 
-            <input type="text"
-                   name="department_location"
-                   value="{{ department.department_location }}"
-                   placeholder="Department Location"
-                   required>
+                <i class="fa-solid fa-layer-group"></i>
 
-            <input type="number"
-                   name="total_employees"
-                   value="{{ department.total_employees }}"
-                   placeholder="Total Employees"
-                   required>
+                <input
+                type="text"
+                id="department_name"
+                name="department_name"
+                value="{{ department.department_name }}"
+                placeholder="Department Name"
+                required>
 
-            <!-- FIX: BUTTON GROUP -->
+            </div>
+
+            <!-- DEPARTMENT HEAD -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-user-tie"></i>
+
+                <input
+                type="text"
+                id="department_head"
+                name="department_head"
+                value="{{ department.department_head }}"
+                placeholder="Department Head"
+                required>
+
+            </div>
+
+            <!-- LOCATION -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <input
+                type="text"
+                id="department_location"
+                name="department_location"
+                value="{{ department.department_location }}"
+                placeholder="Department Location"
+                required>
+
+            </div>
+
+            <!-- TOTAL EMPLOYEES -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-users"></i>
+
+                <input
+                type="number"
+                id="total_employees"
+                name="total_employees"
+                value="{{ department.total_employees }}"
+                placeholder="Total Employees"
+                required>
+
+            </div>
+
+            <!-- BUTTON GROUP -->
+
             <div class="button-group">
 
-                <button type="submit" class="update-btn">
+                <button
+                type="submit"
+                class="update-btn">
+
+                    <i class="fa-solid fa-pen"></i>
+
                     Update Department
+
                 </button>
 
-                <a href="/details" class="back-btn">
+                <a
+                href="/details"
+                class="back-btn">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
                     Back To Details
+
                 </a>
 
             </div>
@@ -62,6 +147,8 @@
     </div>
 
 </div>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
 
 </body>
 </html>

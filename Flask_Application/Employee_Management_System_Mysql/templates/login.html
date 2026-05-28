@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>EMS Login</title>
+
+    <!-- FAVICON (TAB ICON) -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"
+
+    <!-- LOGIN CSS -->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='login.css') }}">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- BACKGROUND CIRCLES -->
+
+<div class="circle one"></div>
+
+<div class="circle two"></div>
+
+<div class="circle three"></div>
+
+<!-- LOGIN CONTAINER -->
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-building"></i>
+
+        </div>
+
+        <!-- HEADING -->
+
+        <h1>EMS Login</h1>
+
+        <p>Employee Management System</p>
+
+        <!-- ERROR MESSAGE -->
+
+        {% if error %}
+
+        <div class="error">
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+        <!-- LOGIN FORM -->
+
+        <form method="POST">
+
+            <!-- USERNAME -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-user user-icon"></i>
+
+                <input
+                type="text"
+                name="username"
+                placeholder="Enter Username"
+                required>
+
+            </div>
+
+            <!-- PASSWORD -->
+
+            <div class="input-box">
+
+                <!-- LOCK ICON -->
+
+                <i class="fa-solid fa-lock lock-icon"></i>
+
+                <!-- PASSWORD INPUT -->
+
+                <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter Password"
+                required>
+
+                <!-- EYE ICON -->
+
+                <span class="toggle-password"
+                onclick="togglePassword()">
+
+                    <i class="fa-solid fa-eye"
+                    id="eye"></i>
+
+                </span>
+
+            </div>
+
+            <!-- LOGIN BUTTON -->
+
+            <button type="submit">
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                Login
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- MAIN JS -->
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+</body>
+</html>

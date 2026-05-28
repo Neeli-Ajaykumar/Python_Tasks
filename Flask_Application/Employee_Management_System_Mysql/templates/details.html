@@ -2,91 +2,59 @@
 <html>
 
 <head>
-
     <title>All Details</title>
 
     <link rel="stylesheet"
-    href="{{ url_for('static', filename='details.css') }}">
-
+          href="{{ url_for('static', filename='details.css') }}">
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- TOP BAR -->
-
+    <!-- HEADER -->
     <div class="top-bar">
 
-        <h1>Employee Management Details</h1>
+        <h1>Employee Management Dashboard</h1>
 
         <a href="/" class="dashboard-btn">
-            Go To Dashboard
+            ⬅ Dashboard
         </a>
 
     </div>
 
-    <!-- SEARCH + DROPDOWN -->
-
+    <!-- CONTROLS -->
     <div class="controls">
 
-        <input
-        type="text"
-        id="searchInput"
-        placeholder="Search By Name"
-        onkeyup="searchByName()">
+        <input type="text"
+               id="searchInput"
+               placeholder="Search employee name..."
+               onkeyup="searchByName()">
 
-        <select
-        id="tableSelector"
-        onchange="showTable()">
-
-            <option value="employeesTable">
-                Employees
-            </option>
-
-            <option value="departmentsTable">
-                Departments
-            </option>
-
-            <option value="salaryTable">
-                Salaries
-            </option>
-
-            <option value="attendanceTable">
-                Attendance
-            </option>
-
+        <select id="tableSelector" onchange="showTable()">
+            <option value="employeesTable">Employees</option>
+            <option value="departmentsTable">Departments</option>
+            <option value="salaryTable">Salary</option>
+            <option value="attendanceTable">Attendance</option>
         </select>
 
     </div>
 
-    <!-- ================================================= -->
-    <!-- EMPLOYEES TABLE -->
-    <!-- ================================================= -->
-
+    <!-- EMPLOYEES -->
     <div id="employeesTable" class="tableBox">
 
         <h2>Employees</h2>
 
+        <div class="table-wrapper">
         <table>
-
             <tr>
-
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Designation</th>
-                <th>Actions</th>
-
+                <th>ID</th><th>Name</th><th>Age</th><th>Gender</th>
+                <th>Email</th><th>Phone</th><th>Designation</th>
+                <th>Address</th><th>Joining</th><th>Dept ID</th><th>Actions</th>
             </tr>
 
             {% for emp in employees %}
-
             <tr>
-
                 <td>{{ emp.id }}</td>
                 <td>{{ emp.name }}</td>
                 <td>{{ emp.age }}</td>
@@ -94,68 +62,36 @@
                 <td>{{ emp.email }}</td>
                 <td>{{ emp.phone }}</td>
                 <td>{{ emp.designation }}</td>
+                <td>{{ emp.address }}</td>
+                <td>{{ emp.joining_date }}</td>
+                <td>{{ emp.department_id }}</td>
 
                 <td>
-
                     <div class="action-buttons">
-
-                        <a
-                        href="/update_employee/{{ emp.id }}"
-                        class="update">
-
-                            Edit
-
-                        </a>
-
-                        <a
-                        href="/delete_employee/{{ emp.id }}"
-                        class="delete"
-                        onclick="return confirmDelete()">
-
-                            Delete
-
-                        </a>
-
+                        <a href="/update_employee/{{ emp.id }}" class="update">Edit</a>
+                        <a href="/delete_employee/{{ emp.id }}" class="delete" onclick="return confirmDelete()">Delete</a>
                     </div>
-
                 </td>
-
             </tr>
-
             {% endfor %}
-
         </table>
+        </div>
 
     </div>
 
-    <!-- ================================================= -->
-    <!-- DEPARTMENTS TABLE -->
-    <!-- ================================================= -->
-
-    <div
-    id="departmentsTable"
-    class="tableBox"
-    style="display:none;">
+    <!-- DEPARTMENTS -->
+    <div id="departmentsTable" class="tableBox" style="display:none;">
 
         <h2>Departments</h2>
 
+        <div class="table-wrapper">
         <table>
-
             <tr>
-
-                <th>ID</th>
-                <th>Department Name</th>
-                <th>Department Head</th>
-                <th>Location</th>
-                <th>Total Employees</th>
-                <th>Actions</th>
-
+                <th>ID</th><th>Name</th><th>Head</th><th>Location</th><th>Total</th><th>Actions</th>
             </tr>
 
             {% for dept in departments %}
-
             <tr>
-
                 <td>{{ dept.id }}</td>
                 <td>{{ dept.department_name }}</td>
                 <td>{{ dept.department_head }}</td>
@@ -163,253 +99,124 @@
                 <td>{{ dept.total_employees }}</td>
 
                 <td>
-
                     <div class="action-buttons">
-
-                        <a
-                        href="/update_department/{{ dept.id }}"
-                        class="update">
-
-                            Edit
-
-                        </a>
-
-                        <a
-                        href="/delete_department/{{ dept.id }}"
-                        class="delete"
-                        onclick="return confirmDelete()">
-
-                            Delete
-
-                        </a>
-
+                        <a href="/update_department/{{ dept.id }}" class="update">Edit</a>
+                        <a href="/delete_department/{{ dept.id }}" class="delete" onclick="return confirmDelete()">Delete</a>
                     </div>
-
                 </td>
-
             </tr>
-
             {% endfor %}
-
         </table>
+        </div>
 
     </div>
 
-    <!-- ================================================= -->
-    <!-- SALARY TABLE -->
-    <!-- ================================================= -->
+    <!-- SALARY -->
+    <div id="salaryTable" class="tableBox" style="display:none;">
 
-    <div
-    id="salaryTable"
-    class="tableBox"
-    style="display:none;">
+        <h2>Salary Records</h2>
 
-        <h2>Salaries</h2>
-
+        <div class="table-wrapper">
         <table>
-
             <tr>
-
-                <th>Employee ID</th>
-                <th>Basic Salary</th>
-                <th>Bonus</th>
-                <th>Deduction</th>
-                <th>Net Salary</th>
-                <th>Actions</th>
-
+                <th>Emp ID</th><th>Basic</th><th>Bonus</th>
+                <th>Deduction</th><th>Net</th><th>Month</th><th>Actions</th>
             </tr>
 
             {% for sal in salaries %}
-
             <tr>
-
                 <td>{{ sal.employee_id }}</td>
                 <td>{{ sal.basic_salary }}</td>
                 <td>{{ sal.bonus }}</td>
                 <td>{{ sal.deduction }}</td>
                 <td>{{ sal.net_salary }}</td>
+                <td>{{ sal.salary_month }}</td>
 
                 <td>
-
                     <div class="action-buttons">
-
-                        <a
-                        href="/update_salary/{{ sal.employee_id }}"
-                        class="update">
-
-                            Edit
-
-                        </a>
-
-                        <a
-                        href="/delete_salary/{{ sal.employee_id }}"
-                        class="delete"
-                        onclick="return confirmDelete()">
-
-                            Delete
-
-                        </a>
-
+                        <a href="/update_salary/{{ sal.employee_id }}" class="update">Edit</a>
+                        <a href="/delete_salary/{{ sal.employee_id }}" class="delete" onclick="return confirmDelete()">Delete</a>
                     </div>
-
                 </td>
-
             </tr>
-
             {% endfor %}
-
         </table>
+        </div>
 
     </div>
 
-    <!-- ================================================= -->
-    <!-- ATTENDANCE TABLE -->
-    <!-- ================================================= -->
-
-    <div
-    id="attendanceTable"
-    class="tableBox"
-    style="display:none;">
+    <!-- ATTENDANCE -->
+    <div id="attendanceTable" class="tableBox" style="display:none;">
 
         <h2>Attendance</h2>
 
+        <div class="table-wrapper">
         <table>
-
             <tr>
-
-                <th>Employee ID</th>
-                <th>Date</th>
-                <th>Check In</th>
-                <th>Check Out</th>
-                <th>Status</th>
-                <th>Actions</th>
-
+                <th>ID</th><th>Date</th><th>In</th><th>Out</th>
+                <th>Status</th><th>Leave Type</th><th>Reason</th>
+                <th>Leave Days</th><th>Present</th><th>Absent</th><th>Leave</th><th>Actions</th>
             </tr>
 
             {% for att in attendance %}
-
             <tr>
-
                 <td>{{ att.employee_id }}</td>
                 <td>{{ att.attendance_date }}</td>
                 <td>{{ att.check_in_time }}</td>
                 <td>{{ att.check_out_time }}</td>
                 <td>{{ att.status }}</td>
+                <td>{{ att.leave_type }}</td>
+                <td>{{ att.leave_reason }}</td>
+                <td>{{ att.leave_days }}</td>
+                <td>{{ att.total_present_days }}</td>
+                <td>{{ att.total_absent_days }}</td>
+                <td>{{ att.total_leave_days }}</td>
 
                 <td>
-
                     <div class="action-buttons">
-
-                        <a
-                        href="/update_attendance/{{ att.employee_id }}"
-                        class="update">
-
-                            Edit
-
-                        </a>
-
-                        <a
-                        href="/delete_attendance/{{ att.employee_id }}"
-                        class="delete"
-                        onclick="return confirmDelete()">
-
-                            Delete
-
-                        </a>
-
+                        <a href="/update_attendance/{{ att.employee_id }}" class="update">Edit</a>
+                        <a href="/delete_attendance/{{ att.employee_id }}" class="delete" onclick="return confirmDelete()">Delete</a>
                     </div>
-
                 </td>
-
             </tr>
-
             {% endfor %}
-
         </table>
+        </div>
 
     </div>
 
 </div>
 
-<!-- ===================================================== -->
-<!-- JAVASCRIPT -->
-<!-- ===================================================== -->
-
 <script>
+function showTable(){
+    let selected = document.getElementById("tableSelector").value;
 
-function showTable() {
+    document.querySelectorAll(".tableBox").forEach(t => t.style.display = "none");
 
-    let selectedTable =
-        document.getElementById(
-            "tableSelector"
-        ).value;
-
-    let tables =
-        document.getElementsByClassName(
-            "tableBox"
-        );
-
-    for (let i = 0; i < tables.length; i++) {
-
-        tables[i].style.display = "none";
-    }
-
-    document.getElementById(
-        selectedTable
-    ).style.display = "block";
+    document.getElementById(selected).style.display = "block";
 }
 
-function searchByName() {
+function searchByName(){
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let table = document.querySelector(".tableBox:not([style*='display: none']) table");
 
-    let input =
-        document.getElementById(
-            "searchInput"
-        ).value.toUpperCase();
+    if(!table) return;
 
-    let visibleTable =
-        document.querySelector(
-            ".tableBox:not([style*='display: none']) table"
-        );
+    let rows = table.getElementsByTagName("tr");
 
-    let tr =
-        visibleTable.getElementsByTagName("tr");
-
-    for (let i = 1; i < tr.length; i++) {
-
-        let td =
-            tr[i].getElementsByTagName("td")[1];
-
-        if (td) {
-
-            let txtValue =
-                td.textContent || td.innerText;
-
-            if (
-                txtValue.toUpperCase().indexOf(input)
-                > -1
-            ) {
-
-                tr[i].style.display = "";
-            }
-
-            else {
-
-                tr[i].style.display = "none";
-            }
+    for(let i=1;i<rows.length;i++){
+        let nameCell = rows[i].getElementsByTagName("td")[1];
+        if(nameCell){
+            let text = nameCell.innerText.toLowerCase();
+            rows[i].style.display = text.includes(input) ? "" : "none";
         }
     }
 }
 
-function confirmDelete() {
-
-    return confirm(
-        "Are you sure you want to delete?"
-    );
+function confirmDelete(){
+    return confirm("Are you sure?");
 }
-
 </script>
-
-<script src="{{ url_for('static', filename='main.js') }}"></script>
 
 </body>
 </html>

@@ -2,55 +2,229 @@ body{
     margin:0;
     padding:0;
     font-family:Arial;
-    background:linear-gradient(135deg,#ea580c,#9a3412);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    background:linear-gradient(135deg,#ea580c,#9a3412,#7c2d12);
+    min-height:100vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    position:relative;
 }
+
+/* ANIMATED BACKGROUND */
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:300px;
+    height:300px;
+    background:rgba(255,255,255,0.08);
+    border-radius:50%;
+    animation:float 8s infinite ease-in-out;
+    z-index:0;
+}
+
+body::before{
+    top:-80px;
+    left:-80px;
+}
+
+body::after{
+    bottom:-100px;
+    right:-100px;
+    animation-delay:4s;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px) rotate(0deg);
+    }
+
+    50%{
+        transform:translateY(-40px) rotate(180deg);
+    }
+
+    100%{
+        transform:translateY(0px) rotate(360deg);
+    }
+
+}
+
+/* CONTAINER */
 
 .container{
-    width:450px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:40px 20px;
+    position:relative;
+    z-index:2;
+    box-sizing:border-box;
 }
 
-.card{
-    background:white;
-    padding:40px;
-    border-radius:20px;
-    animation:slideLeft 0.8s ease;
+/* DASHBOARD BUTTON */
+
+.dashboard-btn{
+    position:fixed;
+    top:20px;
+    right:30px;
+    text-decoration:none;
+    background:#ea580c;
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    transition:0.4s;
+    font-weight:bold;
+    box-shadow:0px 0px 15px rgba(0,0,0,0.2);
+    z-index:1000;
 }
+
+.dashboard-btn:hover{
+    background:#c2410c;
+    transform:scale(1.08);
+    box-shadow:0px 0px 20px #fdba74;
+}
+
+/* CARD */
+
+.card{
+    width:600px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0px 10px 30px rgba(0,0,0,0.35);
+    animation:slideLeft 0.8s ease;
+    margin-top:80px;
+    margin-bottom:40px;
+}
+
+/* HEADING */
 
 h1{
     text-align:center;
     margin-bottom:30px;
+    color:white;
+    font-size:34px;
+    letter-spacing:1px;
+    animation:glow 2s infinite alternate;
 }
+
+h1 i{
+    margin-right:10px;
+}
+
+@keyframes glow{
+
+    from{
+        text-shadow:0px 0px 10px #fff;
+    }
+
+    to{
+        text-shadow:0px 0px 20px #fdba74;
+    }
+
+}
+
+/* FORM */
 
 form{
     display:flex;
     flex-direction:column;
 }
 
-input{
+/* INPUT BOX */
+
+.input-box{
+    position:relative;
     margin-bottom:18px;
-    padding:14px;
-    border-radius:10px;
-    border:1px solid #ccc;
 }
+
+.input-box i{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#fdba74;
+    font-size:18px;
+}
+
+/* INPUTS */
+
+input,
+select{
+
+    width:100%;
+    padding:14px 14px 14px 45px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,0.3);
+    font-size:16px;
+    background:rgba(255,255,255,0.12);
+    color:white;
+    transition:0.4s;
+    box-sizing:border-box;
+}
+
+/* PLACEHOLDER */
+
+input::placeholder{
+    color:#f3f4f6;
+}
+
+/* SELECT OPTION */
+
+select option{
+    color:black;
+}
+
+/* FOCUS EFFECT */
+
+input:focus,
+select:focus{
+
+    outline:none;
+    border-color:white;
+    box-shadow:0px 0px 15px #fdba74;
+    transform:scale(1.03);
+}
+
+/* READONLY */
+
+input[readonly]{
+    background:rgba(255,255,255,0.25);
+    cursor:not-allowed;
+}
+
+/* BUTTON GROUP */
 
 .button-group{
     display:flex;
     gap:15px;
+    margin-top:15px;
 }
+
+/* UPDATE BUTTON */
 
 .update-btn{
     flex:1;
-    background:#ea580c;
+    background:linear-gradient(to right,#ea580c,#f97316);
     color:white;
     border:none;
-    padding:14px;
-    border-radius:10px;
+    padding:15px;
+    border-radius:14px;
     cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    transition:0.5s;
 }
+
+.update-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0px 0px 20px #fdba74;
+}
+
+/* BACK BUTTON */
 
 .back-btn{
     flex:1;
@@ -58,17 +232,48 @@ input{
     color:white;
     text-decoration:none;
     text-align:center;
-    padding:14px;
-    border-radius:10px;
+    padding:15px;
+    border-radius:14px;
+    transition:0.5s;
+    font-weight:bold;
 }
 
+.back-btn:hover{
+    background:#374151;
+    transform:scale(1.05);
+}
+
+/* CARD ANIMATION */
+
 @keyframes slideLeft{
+
     from{
         transform:translateX(-80px);
         opacity:0;
     }
+
     to{
         transform:translateX(0);
         opacity:1;
     }
+
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#ea580c;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#7c2d12;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#431407;
 }

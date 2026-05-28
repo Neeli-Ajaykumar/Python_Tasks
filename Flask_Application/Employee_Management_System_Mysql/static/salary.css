@@ -1,82 +1,386 @@
+/* ==========================================================
+BODY
+========================================================== */
+
 body{
+
     margin:0;
+
     padding:0;
-    font-family:Arial;
-    background:linear-gradient(to right,#11998e,#38ef7d);
-    height:100vh;
+
+    font-family:Arial, sans-serif;
+
+    background:linear-gradient(to right,#065f46,#16a34a);
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    position:relative;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 }
+
+/* ==========================================================
+BACKGROUND CIRCLES
+========================================================== */
+
+.circle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.08);
+
+    animation:float 8s infinite ease-in-out;
+}
+
+.one{
+
+    width:300px;
+
+    height:300px;
+
+    top:-100px;
+
+    left:-100px;
+}
+
+.two{
+
+    width:250px;
+
+    height:250px;
+
+    bottom:-80px;
+
+    right:-80px;
+
+    animation-delay:2s;
+}
+
+.three{
+
+    width:180px;
+
+    height:180px;
+
+    top:50%;
+
+    left:10%;
+
+    animation-delay:4s;
+}
+
+/* ==========================================================
+DASHBOARD BUTTON
+========================================================== */
+
+.dashboard-btn{
+
+    position:fixed;
+
+    top:20px;
+
+    right:20px;
+
+    background:#166534;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    transition:0.4s;
+
+    z-index:999;
+
+    box-shadow:0px 0px 15px #22c55e;
+}
+
+.dashboard-btn i{
+
+    margin-right:8px;
+}
+
+.dashboard-btn:hover{
+
+    background:#15803d;
+
+    transform:translateY(-3px);
+
+    box-shadow:0px 0px 25px #22c55e;
+}
+
+/* ==========================================================
+CONTAINER
+========================================================== */
 
 .container{
+
     width:100%;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
+
+    position:relative;
+
+    z-index:10;
 }
 
+/* ==========================================================
+CARD
+========================================================== */
+
 .card{
-    width:600px;
-    background:white;
+
+    width:650px;
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(15px);
+
     padding:40px;
-    border-radius:20px;
-    box-shadow:0px 0px 20px rgba(0,0,0,0.3);
+
+    border-radius:25px;
+
+    box-shadow:0px 0px 25px rgba(0,0,0,0.3);
+
     animation:fade 1s;
 }
 
+/* ==========================================================
+HEADING
+========================================================== */
+
 h1{
+
     text-align:center;
-    color:#166534;
-    margin-bottom:30px;
+
+    color:white;
+
+    margin-bottom:35px;
+
+    font-size:38px;
+
+    text-shadow:0px 0px 15px #bbf7d0;
+
+    animation:glow 2s infinite alternate;
 }
+
+h1 i{
+
+    color:#bbf7d0;
+
+    margin-right:10px;
+}
+
+/* ==========================================================
+FORM
+========================================================== */
 
 form{
+
     display:flex;
-    flex-direction:column;
+
+    flex-wrap:wrap;
+
+    justify-content:space-between;
 }
 
+/* ==========================================================
+INPUT BOX
+========================================================== */
+
+.input-box{
+
+    position:relative;
+
+    width:48%;
+
+    margin-bottom:22px;
+}
+
+.full-width{
+
+    width:100%;
+}
+
+/* ==========================================================
+INPUT ICON
+========================================================== */
+
+.input-box i{
+
+    position:absolute;
+
+    left:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#bbf7d0;
+
+    font-size:18px;
+}
+
+/* ==========================================================
+INPUT FIELD
+========================================================== */
+
 input{
-    padding:14px;
-    margin:12px 0;
-    border:1px solid #ccc;
-    border-radius:10px;
+
+    width:100%;
+
+    padding:15px 15px 15px 45px;
+
+    border:none;
+
+    border-radius:12px;
+
+    outline:none;
+
+    background:rgba(255,255,255,0.15);
+
+    color:white;
+
     font-size:16px;
+
     transition:0.4s;
+
+    box-sizing:border-box;
+}
+
+input::placeholder{
+
+    color:#e5e7eb;
 }
 
 input:focus{
-    border-color:#16a34a;
-    box-shadow:0px 0px 10px #86efac;
-    outline:none;
+
+    transform:scale(1.03);
+
+    box-shadow:0px 0px 15px #bbf7d0;
 }
 
+/* ==========================================================
+BUTTON
+========================================================== */
+
 button{
+
+    width:100%;
+
     padding:15px;
-    background:#16a34a;
+
+    background:linear-gradient(to right,#16a34a,#15803d);
+
     color:white;
+
     border:none;
-    border-radius:10px;
-    font-size:16px;
+
+    border-radius:12px;
+
+    font-size:17px;
+
     cursor:pointer;
-    transition:0.5s;
+
+    transition:0.4s;
+
+    margin-top:10px;
+}
+
+button i{
+
+    margin-right:8px;
 }
 
 button:hover{
-    background:#15803d;
-    transform:scale(1.05);
+
+    transform:translateY(-3px);
+
+    box-shadow:0px 0px 20px #bbf7d0;
 }
+
+/* ==========================================================
+ANIMATIONS
+========================================================== */
 
 @keyframes fade{
 
     from{
+
         opacity:0;
+
         transform:translateY(50px);
     }
 
     to{
+
         opacity:1;
+
         transform:translateY(0);
     }
+}
 
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-25px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+}
+
+@keyframes glow{
+
+    from{
+        text-shadow:0px 0px 10px #bbf7d0;
+    }
+
+    to{
+        text-shadow:0px 0px 25px #bbf7d0;
+    }
+}
+
+/* ==========================================================
+RESPONSIVE
+========================================================== */
+
+@media(max-width:768px){
+
+    .card{
+
+        width:90%;
+
+        padding:25px;
+    }
+
+    .input-box{
+
+        width:100%;
+    }
+
+    h1{
+
+        font-size:30px;
+    }
 }

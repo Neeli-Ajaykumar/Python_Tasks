@@ -3,48 +3,101 @@
 
 <head>
 
-<title>Success</title>
+    <title>Success</title>
 
-<link rel="stylesheet"
-href="{{ url_for('static', filename='success.css') }}">
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='success.css') }}">
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
+<!-- ANIMATED BACKGROUND ICONS -->
+
+<div class="bg-icons">
+
+    <i class="fa-solid fa-circle-check"></i>
+    <i class="fa-solid fa-user"></i>
+    <i class="fa-solid fa-building"></i>
+    <i class="fa-solid fa-money-bill-wave"></i>
+    <i class="fa-solid fa-calendar-check"></i>
+
+</div>
+
 <div class="success-box">
 
-<h1>{{ message }}</h1>
+    <!-- SUCCESS ICON -->
 
-<div class="buttons">
+    <div class="success-icon">
 
-<a href="{{ back_url }}">
+        <i class="fa-solid fa-circle-check"></i>
 
-<button>
-Go Back
-</button>
+    </div>
 
-</a>
+    <!-- MESSAGE -->
 
-<a href="/details">
+    <h1>{{ message }}</h1>
 
-<button class="details-btn">
-View Details
-</button>
+    <p class="success-text">
 
-</a>
+        Your data has been successfully saved into the
+        Employee Management System.
 
-<a href="/">
+    </p>
 
-<button class="dashboard-btn">
-Dashboard
-</button>
+    <!-- BUTTONS -->
 
-</a>
+    <div class="buttons">
+
+        <!-- GO BACK -->
+
+        <a href="{{ back_url }}">
+
+            <button class="back-btn">
+
+                <i class="fa-solid fa-arrow-left"></i>
+                Go Back
+
+            </button>
+
+        </a>
+
+        <!-- VIEW DETAILS -->
+
+        <a href="/details">
+
+            <button class="details-btn">
+
+                <i class="fa-solid fa-table-list"></i>
+                View Details
+
+            </button>
+
+        </a>
+
+        <!-- DASHBOARD -->
+
+        <a href="/">
+
+            <button class="dashboard-btn">
+
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+
+            </button>
+
+        </a>
+
+    </div>
 
 </div>
 
-</div>
-	<script src="{{ url_for('static', filename='main.js') }}"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
 </body>
 </html>

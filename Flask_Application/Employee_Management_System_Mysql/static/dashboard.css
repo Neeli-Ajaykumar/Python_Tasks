@@ -1,21 +1,51 @@
+/* ==========================================================
+BODY
+========================================================== */
+
 body{
     margin:0;
-    font-family:Arial;
-    background:linear-gradient(to right,#141e30,#243b55);
+    font-family:Arial, sans-serif;
+    background:url("https://images.unsplash.com/photo-1520607162513-77705c0f0d4a")
+    no-repeat center center/cover;
+    overflow-x:hidden;
 }
+
+/* ==========================================================
+OVERLAY
+========================================================== */
+
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    z-index:-1;
+}
+
+/* ==========================================================
+SIDEBAR
+========================================================== */
 
 .sidebar{
     width:250px;
     height:100vh;
-    background:#111827;
+    background:rgba(17,24,39,0.95);
     position:fixed;
     animation:slide 1s;
+    box-shadow:0px 0px 20px black;
 }
 
 .sidebar h2{
     color:white;
     text-align:center;
-    padding:20px;
+    padding:25px;
+    font-size:28px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar h2 i{
+    color:cyan;
+    margin-right:10px;
 }
 
 .sidebar a{
@@ -23,40 +53,207 @@ body{
     color:white;
     text-decoration:none;
     padding:20px;
-    transition:0.5s;
+    transition:0.4s;
+    font-size:18px;
+}
+
+.sidebar a i{
+    margin-right:10px;
+    color:cyan;
 }
 
 .sidebar a:hover{
     background:#06b6d4;
     padding-left:35px;
+    transform:scale(1.02);
 }
 
+/* ==========================================================
+LOGOUT BUTTON
+========================================================== */
+
+.logout-btn{
+    position:absolute;
+    bottom:20px;
+    left:10px;
+    width:80%;
+    background:#ef4444;
+    border-radius:10px;
+    text-align:center;
+}
+
+.logout-btn:hover{
+    background:#dc2626;
+    box-shadow:0px 0px 15px #ef4444;
+}
+
+/* ==========================================================
+CONTENT
+========================================================== */
+
 .content{
-    margin-left:260px;
+    margin-left:270px;
     padding:40px;
     color:white;
 }
 
+/* ==========================================================
+MAIN HEADING
+========================================================== */
+
+#main_heading{
+    font-size:45px;
+    text-shadow:0px 0px 15px cyan;
+    animation:glow 2s infinite alternate;
+    margin-bottom:10px;
+}
+
+/* ==========================================================
+DATE TIME
+========================================================== */
+
+#datetime{
+    margin-top:10px;
+    margin-bottom:30px;
+    font-size:20px;
+    color:#d1d5db;
+}
+
+/* ==========================================================
+CARDS CONTAINER
+========================================================== */
+
 .cards{
     display:flex;
     flex-wrap:wrap;
-    gap:20px;
+    gap:25px;
 }
+
+/* ==========================================================
+CARD DESIGN
+========================================================== */
 
 .card{
-    width:220px;
-    background:white;
-    color:black;
+    width:240px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(10px);
+    color:white;
     padding:30px;
-    border-radius:15px;
+    border-radius:20px;
     transition:0.5s;
     animation:fade 1s;
+    border:1px solid rgba(255,255,255,0.2);
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
 }
 
-.card:hover{
-    transform:translateY(-10px);
-    box-shadow:0px 0px 20px cyan;
+/* ==========================================================
+CARD TOP LINE
+========================================================== */
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:100%;
+
+    height:5px;
+
+    background:linear-gradient(to right,cyan,#06b6d4);
+
+    top:0;
+
+    left:0;
 }
+
+/* ==========================================================
+CARD ICON
+========================================================== */
+
+.icon{
+    font-size:45px;
+    margin-bottom:20px;
+    color:cyan;
+    animation:float 3s infinite ease-in-out;
+}
+
+/* ==========================================================
+CARD HOVER
+========================================================== */
+
+.card:hover{
+    transform:translateY(-12px) scale(1.03);
+    box-shadow:0px 0px 25px cyan;
+}
+
+/* ==========================================================
+CARD TEXT
+========================================================== */
+
+.card h2{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#e5e7eb;
+    font-size:17px;
+}
+
+/* ==========================================================
+NOTIFICATION
+========================================================== */
+
+.notification{
+
+    position:fixed;
+
+    top:20px;
+
+    right:-400px;
+
+    background:#06b6d4;
+
+    color:white;
+
+    padding:15px 25px;
+
+    border-radius:12px;
+
+    box-shadow:0px 0px 15px cyan;
+
+    transition:0.5s;
+
+    z-index:9999;
+
+    font-size:16px;
+}
+
+.notification.show{
+
+    right:20px;
+}
+
+.notification.error{
+
+    background:#ef4444;
+}
+
+/* ==========================================================
+PULSE EFFECT
+========================================================== */
+
+.pulse{
+
+    animation:pulse 0.5s;
+}
+
+/* ==========================================================
+SLIDE ANIMATION
+========================================================== */
 
 @keyframes slide{
 
@@ -67,8 +264,11 @@ body{
     to{
         left:0;
     }
-
 }
+
+/* ==========================================================
+FADE ANIMATION
+========================================================== */
 
 @keyframes fade{
 
@@ -81,5 +281,113 @@ body{
         opacity:1;
         transform:translateY(0);
     }
+}
 
+/* ==========================================================
+GLOW ANIMATION
+========================================================== */
+
+@keyframes glow{
+
+    from{
+        text-shadow:0px 0px 10px cyan;
+    }
+
+    to{
+        text-shadow:0px 0px 25px #06b6d4;
+    }
+}
+
+/* ==========================================================
+FLOAT ANIMATION
+========================================================== */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+}
+
+/* ==========================================================
+PULSE ANIMATION
+========================================================== */
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+/* ==========================================================
+SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#111827;
+}
+
+::-webkit-scrollbar-thumb{
+    background:cyan;
+    border-radius:10px;
+}
+
+/* ==========================================================
+RESPONSIVE DESIGN
+========================================================== */
+
+@media(max-width:768px){
+
+    .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+    }
+
+    .content{
+        margin-left:0;
+        padding:20px;
+    }
+
+    .cards{
+        justify-content:center;
+    }
+
+    .card{
+        width:90%;
+    }
+
+    #main_heading{
+        font-size:32px;
+    }
+
+    .logout-btn{
+        position:relative;
+        width:90%;
+        margin:20px auto;
+        display:block;
+        left:0;
+        bottom:0;
+    }
 }

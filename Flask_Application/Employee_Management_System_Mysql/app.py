@@ -1,34 +1,89 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 import requests
 
 app = Flask(__name__)
-
-# ==========================================================
-# FASTAPI SERVER URL
-# ==========================================================
+app.secret_key = "ems_secret"
 
 API_URL = "http://127.0.0.1:5001"
+
+
+# ==========================================================
+# LOGIN
+# ==========================================================
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+    if request.method == 'POST':
+
+        data = {
+            "username": request.form['username'],
+            "password": request.form['password']
+        }
+
+        try:
+            res = requests.post(f"{API_URL}/login", json=data)
+            result = res.json()
+        except:
+            return render_template("login.html", error="Server error")
+
+        if result.get("status") == "success":
+            session["user"] = data["username"]
+            return redirect("/")
+
+        return render_template("login.html", error="Invalid credentials")
+
+    return render_template("login.html")
+
+
+# ==========================================================
+# LOGOUT
+# ==========================================================
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect("/login")
+
+
+# ==========================================================
+# AUTH CHECK
+# ==========================================================
+
+def login_required(func):
+    def wrapper(*args, **kwargs):
+        if "user" not in session:
+            return redirect("/login")
+        return func(*args, **kwargs)
+    wrapper.__name__ = func.__name__
+    return wrapper
+
 
 # ==========================================================
 # DASHBOARD
 # ==========================================================
 
 @app.route('/')
+@login_required
 def dashboard():
     return render_template("dashboard.html")
 
 
 # ==========================================================
-# EMPLOYEES PAGE
+# EMPLOYEES
 # ==========================================================
 
 @app.route('/employees', methods=['GET', 'POST'])
+@login_required
 def employees():
+
+    departments = requests.get(f"{API_URL}/departments").json()["data"]
 
     if request.method == 'POST':
 
         data = {
             "id": int(request.form['id']),
+            "department_id": int(request.form['department_id']),  # FIXED
             "name": request.form['name'],
             "age": int(request.form['age']),
             "gender": request.form['gender'],
@@ -47,7 +102,7 @@ def employees():
             back_url="/employees"
         )
 
-    return render_template("employees.html")
+    return render_template("employees.html", departments=departments)
 
 
 # ==========================================================
@@ -55,14 +110,20 @@ def employees():
 # ==========================================================
 
 @app.route('/update_employee/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update_employee(id):
 
-    employee = requests.get(f"{API_URL}/employees/{id}").json()
+    # GET employee data
+    res = requests.get(f"{API_URL}/employees/{id}")
+
+    try:
+        employee = res.json()
+    except:
+        return "Error: Cannot fetch employee data from API"
 
     if request.method == 'POST':
 
         data = {
-            "id": id,
             "name": request.form['name'],
             "age": int(request.form['age']),
             "gender": request.form['gender'],
@@ -70,20 +131,15 @@ def update_employee(id):
             "phone": request.form['phone'],
             "address": request.form.get('address', ''),
             "designation": request.form['designation'],
-            "joining_date": request.form.get('joining_date', '')
+            "joining_date": request.form.get('joining_date', ''),
+            "department_id": int(request.form['department_id'])
         }
 
-        requests.put(
-            f"{API_URL}/employees/{id}",
-            json=data
-        )
+        requests.put(f"{API_URL}/employees/{id}", json=data)
 
         return redirect('/details')
 
-    return render_template(
-        "update_employee.html",
-        employee=employee
-    )
+    return render_template("update_employee.html", employee=employee)
 
 
 # ==========================================================
@@ -91,18 +147,19 @@ def update_employee(id):
 # ==========================================================
 
 @app.route('/delete_employee/<int:id>')
+@login_required
 def delete_employee(id):
 
     requests.delete(f"{API_URL}/employees/{id}")
 
     return redirect('/details')
 
-
 # ==========================================================
 # DEPARTMENTS PAGE
 # ==========================================================
 
 @app.route('/departments', methods=['GET', 'POST'])
+@login_required
 def departments():
 
     if request.method == 'POST':
@@ -130,6 +187,7 @@ def departments():
 # ==========================================================
 
 @app.route('/update_department/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update_department(id):
 
     departments = requests.get(f"{API_URL}/departments").json()["data"]
@@ -150,17 +208,11 @@ def update_department(id):
             "total_employees": int(request.form['total_employees'])
         }
 
-        requests.put(
-            f"{API_URL}/departments/{id}",
-            json=data
-        )
+        requests.put(f"{API_URL}/departments/{id}", json=data)
 
         return redirect('/details')
 
-    return render_template(
-        "update_department.html",
-        department=department
-    )
+    return render_template("update_department.html", department=department)
 
 
 # ==========================================================
@@ -168,6 +220,7 @@ def update_department(id):
 # ==========================================================
 
 @app.route('/delete_department/<int:id>')
+@login_required
 def delete_department(id):
 
     requests.delete(f"{API_URL}/departments/{id}")
@@ -180,6 +233,7 @@ def delete_department(id):
 # ==========================================================
 
 @app.route('/salary', methods=['GET', 'POST'])
+@login_required
 def salary():
 
     if request.method == 'POST':
@@ -209,6 +263,7 @@ def salary():
 # ==========================================================
 
 @app.route('/update_salary/<int:employee_id>', methods=['GET', 'POST'])
+@login_required
 def update_salary(employee_id):
 
     salaries = requests.get(f"{API_URL}/salary").json()["data"]
@@ -231,17 +286,11 @@ def update_salary(employee_id):
             "salary_month": request.form.get('salary_month', '')
         }
 
-        requests.put(
-            f"{API_URL}/salary/{employee_id}",
-            json=data
-        )
+        requests.put(f"{API_URL}/salary/{employee_id}", json=data)
 
         return redirect('/details')
 
-    return render_template(
-        "update_salary.html",
-        salary=salary
-    )
+    return render_template("update_salary.html", salary=salary)
 
 
 # ==========================================================
@@ -249,6 +298,7 @@ def update_salary(employee_id):
 # ==========================================================
 
 @app.route('/delete_salary/<int:employee_id>')
+@login_required
 def delete_salary(employee_id):
 
     requests.delete(f"{API_URL}/salary/{employee_id}")
@@ -265,18 +315,25 @@ def attendance():
 
     if request.method == 'POST':
 
+        # SAFE INT CONVERTER (prevents empty string crash)
+        def safe_int(value):
+            return int(value) if value not in [None, ""] else 0
+
         data = {
             "employee_id": int(request.form['employee_id']),
             "attendance_date": request.form['attendance_date'],
             "check_in_time": request.form['check_in_time'],
             "check_out_time": request.form['check_out_time'],
             "status": request.form['status'],
+
             "leave_type": request.form.get('leave_type', ''),
             "leave_reason": request.form.get('leave_reason', ''),
-            "leave_days": int(request.form.get('leave_days', 0)),
-            "total_present_days": int(request.form.get('total_present_days', 0)),
-            "total_absent_days": int(request.form.get('total_absent_days', 0)),
-            "total_leave_days": int(request.form.get('total_leave_days', 0))
+
+            # FIXED LINES (NO CRASH)
+            "leave_days": safe_int(request.form.get('leave_days')),
+            "total_present_days": safe_int(request.form.get('total_present_days')),
+            "total_absent_days": safe_int(request.form.get('total_absent_days')),
+            "total_leave_days": safe_int(request.form.get('total_leave_days'))
         }
 
         requests.post(f"{API_URL}/attendance", json=data)
@@ -295,11 +352,10 @@ def attendance():
 # ==========================================================
 
 @app.route('/update_attendance/<int:employee_id>', methods=['GET', 'POST'])
+@login_required
 def update_attendance(employee_id):
 
-    attendance_data = requests.get(
-        f"{API_URL}/attendance"
-    ).json()["data"]
+    attendance_data = requests.get(f"{API_URL}/attendance").json()["data"]
 
     attendance = None
 
@@ -324,17 +380,11 @@ def update_attendance(employee_id):
             "total_leave_days": int(request.form.get('total_leave_days', 0))
         }
 
-        requests.put(
-            f"{API_URL}/attendance/{employee_id}",
-            json=data
-        )
+        requests.put(f"{API_URL}/attendance/{employee_id}", json=data)
 
         return redirect('/details')
 
-    return render_template(
-        "update_attendance.html",
-        attendance=attendance
-    )
+    return render_template("update_attendance.html", attendance=attendance)
 
 
 # ==========================================================
@@ -342,6 +392,7 @@ def update_attendance(employee_id):
 # ==========================================================
 
 @app.route('/delete_attendance/<int:employee_id>')
+@login_required
 def delete_attendance(employee_id):
 
     requests.delete(f"{API_URL}/attendance/{employee_id}")
@@ -354,6 +405,7 @@ def delete_attendance(employee_id):
 # ==========================================================
 
 @app.route('/details')
+@login_required
 def details():
 
     employees = requests.get(f"{API_URL}/employees").json()
